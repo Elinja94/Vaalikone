@@ -1,3 +1,5 @@
+package app;
+
 import java.io.IOException;
 
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +20,7 @@ public class HelloAppEngine extends HttpServlet {
     response.setContentType("text/plain");
     response.setCharacterEncoding("UTF-8");
 
-    response.getWriter().print("Hello App Engine!\r\n");
+    response.getWriter().print("No\r\n");
 
   }
 }
