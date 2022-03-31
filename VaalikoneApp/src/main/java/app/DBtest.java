@@ -15,13 +15,7 @@ import dao.Dao;
 @WebServlet("/dbtest")
 public class DBtest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Dao dao=null;
-	
-	@Override
-	public void init() {
-		dao=new Dao("jdbc:mysql://localhost:3306/vaalikone", "root", "Palvelin");
-	}
-       
+  
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,7 +29,7 @@ public class DBtest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if (dao.getConnection()) {
+		if (Dao.getConnection("jdbc:mysql://localhost:3306/vaalikone", "root", "Palvelin")) {
 			
 			System.out.println("Connected");
 			
