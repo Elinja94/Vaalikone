@@ -12,9 +12,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class Dao {
 
-	private String url;
-	private String user;
-	private String pass;
+	private static String url;
+	private static String user;
+	private static String pass;
 	private static Connection conn;
 	
 	// Script to encrypt the password (teacher's code) -Sonja
@@ -58,11 +58,11 @@ public class Dao {
     }
 	
 	// Checking the connection to the database -Sonja
-	public static boolean getConnection(String url, String user, String pass) {
+	public static boolean getConnection() {
 		
-		url=url;
-		user=user;
-		pass=pass;
+		url = "jdbc:mysql://localhost:3306/vaalikone";
+		user= "root";
+		pass= "Palvelin";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -89,7 +89,7 @@ public class Dao {
 	public static boolean checkLogin(String user, String pass) {
 		
 		// Connection to the database
-		if (getConnection("jdbc:mysql://localhost:3306/vaalikone", "root", "Palvelin") == true) {
+		if (getConnection() == true) {
 			
 			// Selecting only the password from the database that matches the given username
 			try {

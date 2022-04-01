@@ -28,8 +28,7 @@ public class DBtest extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		if (Dao.getConnection("jdbc:mysql://localhost:3306/vaalikone", "root", "Palvelin")) {
+		if (Dao.getConnection() == true) {
 			
 			System.out.println("Connected");
 			
