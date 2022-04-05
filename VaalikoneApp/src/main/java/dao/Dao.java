@@ -6,9 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import java.util.ArrayList;
+
+import data.Question;
 
 public class Dao {
 
@@ -117,4 +122,42 @@ public class Dao {
 		return false;
 		
 	}
+	
+	// Making an arraylist of questions -Sonja
+	public static ArrayList<Question> listOfQuestions() {
+		ArrayList<Question> questionsList = new ArrayList<>();
+		
+		// Connection to the database
+		if (getConnection() == true) {
+			
+			// Selecting everything from the kysymykset table 
+			try {
+				Statement stmt = conn.createStatement();
+				ResultSet result = stmt.executeQuery("SELECT * FROM kysymykset");
+				
+				
+				// Putting data to the arraylist
+				while (result.next()) {
+					Question ques = new Question();
+					ques.setId(result.getInt(1));
+					ques.setQuestion(result.getString(2));
+					questionsList.add(ques);
+					
+				}
+				result.next();
+				return questionsList;
+				
+			} 
+			
+			// Just in case if something goes wrong
+			catch (SQLException e) {
+				return null;
+				
+			}
+		}
+		
+		return null;
+		
+	}
+	
 }
