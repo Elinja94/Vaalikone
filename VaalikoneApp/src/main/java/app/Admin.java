@@ -1,7 +1,6 @@
 package app;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,21 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.Dao;
-import data.Question;
-
-
 /**
- * Servlet implementation class QuestionsList
+ * Servlet implementation class Admin
  */
-@WebServlet("/QuestionsList")
-public class QuestionsList extends HttpServlet {
+@WebServlet("/Admin")
+public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionsList() {
+    public Admin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,31 +29,28 @@ public class QuestionsList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
 		String myName = (String)session.getAttribute("uname");
 		
 	    if (myName != null) {
-			ArrayList<Question> listOfQuestions = null;
-			if (Dao.getConnection() == true) {
-				listOfQuestions = Dao.listOfQuestions();
-				
-			}
-			
-			else {
-				System.out.println("Not connected to the database");
-				
-			}
-			
-			request.setAttribute("questionsList", listOfQuestions);
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/QuestionsList.jsp");
+	    	RequestDispatcher rd = request.getRequestDispatcher("/jsp/Admin.jsp");
 			rd.forward(request, response);
 	    }
 	    
 	    else {
 	    	response.sendRedirect("http://localhost:8080/");
 	    }
+	    
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

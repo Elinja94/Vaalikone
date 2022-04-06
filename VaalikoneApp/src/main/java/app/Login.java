@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 
@@ -37,27 +38,30 @@ public class Login extends HttpServlet {
 	    String cryptedPass = "";
 	    
 	    // Makes sure that there is a password entered
-	    if (!pass.isEmpty()) {
+	    if (!pass.isEmpty() && !user.isEmpty()) {
 	    	
 	    	// Encrypting the password
 	    	cryptedPass = Dao.crypt(pass);
 	    	
 	    	// Makes sure that password is correct to the provided username
 	    	if (Dao.checkLogin(user, cryptedPass) == true) {
-				response.getWriter().println("Login ok");
+	    		HttpSession session=request.getSession();
+	    		session.setAttribute("uname",user);
+	    		response.sendRedirect("/Admin");
+				//response.getWriter().println("Login ok");
 				
 			}
 			
 	    	// If either password or username is wrong
 			else {
-				response.getWriter().println("Login not ok");
+				response.sendRedirect("http://localhost:8080/");
 				
 			}
 	    }
 	    
 	    // If no password was entered
 	    else {
-	    	response.getWriter().println("Input password");
+	    	response.sendRedirect("http://localhost:8080/");
 	    	
 	    }
 	}
