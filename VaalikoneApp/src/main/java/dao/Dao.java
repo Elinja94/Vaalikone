@@ -195,6 +195,26 @@ public class Dao {
 		return null;
 	}
 	
+	public ArrayList<Answer> updateAnswer(Answer a) {
+		if (getConnection() == true) {
+			try {
+				String sql="update vastaukset set VASTAUS=? where EHDOKAS_ID=? and KYSYMYS_ID=?";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, a.getAnswer());
+				pstmt.setInt(2, a.getCandidateId());
+				pstmt.setInt(3, a.getQuestionId());
+				pstmt.executeUpdate();
+				return readCandidateAnswers("" + a.getCandidateId());
+			}
+			catch(Exception e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
+	
 	public Answer readAnswer(String candidateId, String questionId) {
 		if (getConnection() == true) {
 			Answer a=null;

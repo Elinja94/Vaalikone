@@ -72,11 +72,13 @@ public class CandidateQuestions extends HttpServlet {
 					candidateAnswer = dao.readAnswer(candidateId, Integer.toString(questionId));
 					
 					if (candidateAnswer == null) {
-						RequestDispatcher rd=request.getRequestDispatcher("/jsp/addanswerform.jsp");		
-						rd.forward(request, response);	
+						request.setAttribute("method", "post");
 					} else {
-						response.getWriter().append("Question already answered");
+						request.setAttribute("method", "put");
 					}			
+					
+					RequestDispatcher rd=request.getRequestDispatcher("/jsp/answerform.jsp");		
+					rd.forward(request, response);	
 				}
 			}
 		}
@@ -88,16 +90,31 @@ public class CandidateQuestions extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 			String questionId = request.getParameter("questionId");
 			String answer = request.getParameter("answer");
-				
-			if (candidateId == null) {
-				response.getWriter().println("Candidate id is missing");
-			} else if (questionId == null) {
-				response.getWriter().println("Question id is missing");
-			} else  {
+			String method = request.getParameter("method");
+			
+			if (method.equals("put")) {
+				doPut(request, response);
+			}
+			
+			else {
 				if (answer != null) {
-					dao.insertAnswer(candidateId, questionId, answer);
-					doGet(request,response);					
+					dao.insertAnswer(candidateId, questionId, answer);					
 				}
 			}
+				
+			doGet(request,response);	
 	}
+	
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		String questionId = request.getParameter("questionId");
+		String answer = request.getParameter("answer");
+		
+		Answer candidateAnswer = dao.readAnswer(candidateId, questionId);
+		candidateAnswer.setAnswer(answer);
+		
+		if (answer != null) {
+			dao.updateAnswer(candidateAnswer);
+			doGet(request,response);					
+		}
+}
 }
