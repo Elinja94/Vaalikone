@@ -7,33 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.Dao;
-
-
-
 /**
- * Servlet implementation class AddCandidate
+ * Servlet implementation class CandidatesList
  */
-
-
-@WebServlet(
-		name = "AddCandidate",
-		urlPatterns = {"/addcandidate"}
-		)
-
-public class AddCandidate extends HttpServlet {
+@WebServlet("/CandidatesList")
+public class CandidatesList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Dao dao;
-	public void init() {
-		dao=new Dao("jdbc:mysql://localhost:3306/vaalikone", "root", "Vaalikone123");
-	}
        
-	@Override
-
-	
-	
-	
-    public AddCandidate() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CandidatesList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +25,6 @@ public class AddCandidate extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -50,10 +33,9 @@ public class AddCandidate extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-}
 
+}

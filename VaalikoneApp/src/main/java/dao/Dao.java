@@ -159,9 +159,9 @@ public class Dao {
 		return null;
 		
 	}
-/*	
+
 	
-	public ArrayList<Candidates> addCandidate(Candidates c) {
+	public ArrayList<Candidate> addCandidate(Candidate c) {
 		String sql="insert into ehdokkaat (EHDOKAS_ID, SUKUNIMI, ETUNIMI, PUOLUE, KOTIPAIKKAKUNTA, IKA, MIKSI_EDUSKUNTAAN, MITA_ASIOITA_HALUAT_EDUSTAA, AMMATTI) values(?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -182,7 +182,7 @@ public class Dao {
 			return null;
 		}
 	}
-	public ArrayList<Candidates> deleteCandidate(String id) {
+	public ArrayList<Candidate> deleteCandidate(String id) {
 		try {
 			String sql="delete from ehdokkaat where id=?";
 			PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -226,6 +226,6 @@ public class Dao {
 		}
 	}
 	
-*/
+
 
 }
