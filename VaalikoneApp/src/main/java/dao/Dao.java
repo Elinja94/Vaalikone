@@ -159,5 +159,73 @@ public class Dao {
 		return null;
 		
 	}
+/*	
 	
+	public ArrayList<Candidates> addCandidate(Candidates c) {
+		String sql="insert into ehdokkaat (EHDOKAS_ID, SUKUNIMI, ETUNIMI, PUOLUE, KOTIPAIKKAKUNTA, IKA, MIKSI_EDUSKUNTAAN, MITA_ASIOITA_HALUAT_EDUSTAA, AMMATTI) values(?, ?, ?, ?)";
+		try {
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getEhdokas_id());
+			pstmt.setString(2, c.getEtunimi());
+			pstmt.setString(3, c.getSukunimi());
+			pstmt.setString(4, c.getPuolue());
+			pstmt.setString(5, c.getKotipaikkakunta());
+			pstmt.setString(6, c.getIka());
+			pstmt.setString(7, c.getMiksi_eduskuntaan());
+			pstmt.setString(8, c.getMita_asioita_haluat_edistaa());
+			pstmt.setString(9, c.getAmmatti());
+			pstmt.executeUpdate();
+			return readCandidates(candidateId);
+		} 
+		catch(SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public ArrayList<Candidates> deleteCandidate(String id) {
+		try {
+			String sql="delete from ehdokkaat where id=?";
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			return readAllCandidates();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	
+	
+	public ArrayList<Candidate> readCandidate(String candidateId) {
+		ArrayList<Candidate> list=new ArrayList<>();
+		try {			
+			String sql = "select * from ehdokkaat where EHDOKAS_ID=?";
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(candidateId));
+			ResultSet RS=pstmt.executeQuery();
+			
+			while (RS.next()){
+				Candidate c=new Candidate();
+				c.setCandidateId(RS.getInt("EHDOKAS_ID"));
+				c.setLastname(RS.getString("SUKUNIMI"));
+				c.setFirstname(RS.getString("ETUNIMI"));
+				c.setParty(RS.getString("PUOLUE"));
+				c.setFirstname(RS.getString("ETUNIMI"));
+				c.setDomicile(RS.getString("KOTIPAIKKAKUNTA"));
+				c.setAge(RS.getString("IKA"));
+				c.setWhyparliament(RS.getString("MIKSI_EDUSKUNTAAN"));
+				c.setWhatthingsyouwanttopromote(RS.getString("MITA_ASIOITA_HALUAT_EDISTAA"));
+				c.setProfession(RS.getString("AMMATTI"));
+				list.add(c);
+			}
+			return list;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+*/
+
 }
