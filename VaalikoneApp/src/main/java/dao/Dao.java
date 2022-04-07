@@ -225,7 +225,123 @@ public class Dao {
 			return null;
 		}
 	}
+  
+  // Questions
+	public ArrayList<Question> readAllQuestions() {
+		if (getConnection() == true) {
+			ArrayList<Question> list=new ArrayList<>();
+			try {
+				Statement stmt=conn.createStatement();
+				ResultSet RS=stmt.executeQuery("select * from kysymykset");
+				while (RS.next()){
+					Question q=new Question();
+					q.setId(RS.getInt("KYSYMYS_ID"));
+					q.setQuestion(RS.getString("KYSYMYS"));
+					list.add(q);
+				}
+				return list;
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
 	
+	// Answers
+	public ArrayList<Answer> readCandidateAnswers(String candidateId) {
+		if (getConnection() == true) {
+			ArrayList<Answer> list=new ArrayList<>();
+			try {			
+				String sql = "select * from vastaukset where EHDOKAS_ID=?";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(candidateId));
+				ResultSet RS=pstmt.executeQuery();
+				
+				while (RS.next()){
+					Answer a=new Answer();
+					a.setCandidateId(RS.getInt("EHDOKAS_ID"));
+					a.setQuestionId(RS.getInt("KYSYMYS_ID"));
+					a.setAnswer(RS.getString("VASTAUS"));
+					list.add(a);
+				}
+				return list;
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
+		return null;
+	}
+	
+	public ArrayList<Answer> insertAnswer(String candidateId, String questionId, String answer) {
+		if (getConnection() == true) {
+			try {
+				String sql="insert into vastaukset (EHDOKAS_ID, KYSYMYS_ID, VASTAUS, KOMMENTTI) values(?, ?, ?, ?)";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(candidateId));
+				pstmt.setInt(2, Integer.parseInt(questionId));
+				pstmt.setString(3, answer);
+				pstmt.setString(4, String.format("ehdokkaan %s vastaus kysymykseen %s", candidateId, questionId));
+				pstmt.execute();
+				return readCandidateAnswers(candidateId);
+			} 
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
+		return null;
+	}
+	
+	public ArrayList<Answer> updateAnswer(Answer a) {
+		if (getConnection() == true) {
+			try {
+				String sql="update vastaukset set VASTAUS=? where EHDOKAS_ID=? and KYSYMYS_ID=?";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, a.getAnswer());
+				pstmt.setInt(2, a.getCandidateId());
+				pstmt.setInt(3, a.getQuestionId());
+				pstmt.executeUpdate();
+				return readCandidateAnswers("" + a.getCandidateId());
+			}
+			catch(Exception e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
+	
+	public Answer readAnswer(String candidateId, String questionId) {
+		if (getConnection() == true) {
+			Answer a=null;
+			try {
+				String sql = "select * from vastaukset where EHDOKAS_ID=? and KYSYMYS_ID=?";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, candidateId);
+				pstmt.setString(2, questionId);
+				ResultSet RS=pstmt.executeQuery();
+			
+				while (RS.next()){
+					a=new Answer();
+
+					a.setCandidateId(RS.getInt("EHDOKAS_ID"));
+					a.setQuestionId(RS.getInt("KYSYMYS_ID"));
+					a.setAnswer(RS.getString("VASTAUS"));
+					a.setComment(RS.getString("KOMMENTTI"));
+				}
+				return a;
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
+	
 }
