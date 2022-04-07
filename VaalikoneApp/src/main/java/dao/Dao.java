@@ -2,17 +2,18 @@ package dao;
 
 // Importing everything we need in this app
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 
+import data.Answer;
 import data.Question;
 
 public class Dao {
