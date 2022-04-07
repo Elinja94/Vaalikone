@@ -18,10 +18,12 @@
     <h1>Questions</h1>
     <%
 	Question question=(Question)request.getAttribute("question");
+    String method=(String)request.getAttribute("method");
 	%>
 	    <form action=/candidatequestions?question=<%= question.getId() + 1 %> method="POST">
 			<h3><%= question.getId() %>. <%= question.getQuestion() %></h3>
 			<input type="hidden" name="questionId" value=<%= question.getId() %>></input>
+			<input type="hidden" name="method" value=<%= method %>></input>
 	      	<div>
 	      	<input type="radio" name="answer" value="1">Vahvasti eri mieltä</input>
           	<input type="radio" name="answer" value="2">Eri mieltä</input>
