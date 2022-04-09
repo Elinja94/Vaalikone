@@ -1,7 +1,6 @@
 package app;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,23 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
-import data.Question;
 
-
-/**
- * Servlet implementation class QuestionsList
- */
 @WebServlet(
-	    name = "QuestionsList",
-	    urlPatterns = {"/kysymykset"}
+	    name = "AddQuestion",
+	    urlPatterns = {"/lisaaKysymysVahvistus"}
 	)
-public class QuestionsList extends HttpServlet {
+public class AddQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionsList() {
+    public AddQuestion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,31 +31,33 @@ public class QuestionsList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
 		String myName = (String)session.getAttribute("uname");
 		
+		// Checking is there a current session
 	    if (myName != null) {
-			ArrayList<Question> listOfQuestions = null;
-			if (Dao.getConnection() == true) {
-				listOfQuestions = Dao.listOfQuestions();
-				
-			}
-			
-			else {
-				System.out.println("Not connected to the database");
-				
-			}
-			
-			request.setAttribute("questionsList", listOfQuestions);
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/QuestionsList.jsp");
-			rd.forward(request, response);
+	    	String question = request.getParameter("question");
+	    	
+	    	// Checking if where able to add question
+	    	if (Dao.addQuestion(question) != null) {
+	    		response.sendRedirect("/kysymykset");
+	    	}
+	    	
+	    	// If not able to add question (just in case)
+	    	else {
+	    		response.sendRedirect("/lisaaKysymys");
+	    	}
+	    	
 	    }
 	    
+	    // If there is no session
 	    else {
 	    	response.sendRedirect("http://localhost:8080/");
 	    }
+	    
 	}
 
 }

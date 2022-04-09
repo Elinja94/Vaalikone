@@ -160,6 +160,34 @@ public class Dao {
 		return null;
 		
 	}
+	
+	// Adding question to the database -Sonja
+	public static ArrayList<Question> addQuestion(String Question) {
+		ArrayList<Question> questionsList = listOfQuestions();
+		System.out.print(questionsList);
+		questionsList.size();
+		
+		// Connection to the database
+		if (getConnection() == true) {
+			
+			//Adding with the given question information
+			try {
+				PreparedStatement pstmt=conn.prepareStatement("INSERT INTO kysymykset (KYSYMYS_ID, KYSYMYS) values(?, ?)");
+				pstmt.setInt(1, questionsList.size()+1);
+				pstmt.setString(2, Question);
+				pstmt.execute();
+				return questionsList;
+			} 
+			
+			// Just in case if something goes wrong
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+		
+	}
 
 	
 	public ArrayList<Candidate> addCandidate(Candidate c) {
