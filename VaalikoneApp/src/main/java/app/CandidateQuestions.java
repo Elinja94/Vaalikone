@@ -116,5 +116,5 @@ public class CandidateQuestions extends HttpServlet {
 			dao.updateAnswer(candidateAnswer);
 			doGet(request,response);					
 		}
-}
+	}
 }
