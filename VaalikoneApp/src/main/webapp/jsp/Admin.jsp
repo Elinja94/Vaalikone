@@ -13,6 +13,7 @@
 	</head>
 	<body>
 		<a href="/QuestionsList">Lista kysymyksistä</a>
+		<a href="/CandidateQuestions">Vastaa ehdokkaan kysymyksiin</a>
 		<a href="/Logout">Kirjaudu ulos</a>
 	</body>
 </html>
