@@ -13,10 +13,12 @@
 
 	</head>
 	<body>
-		<h1>Kaikki kysymykset</h1>
+		<h2>Kaikki kysymykset</h2>
+	<ol>
 	<c:forEach var="question" items="${requestScope.questionsList}" >
-		<li>${question.id}: ${question.question}</li>
+		<li>${question.question}</li>
 	</c:forEach>
 	</ol>
+	<a href="/lisaaKysymys">Lisää kysmys</a>
 	</body>
 </html>
