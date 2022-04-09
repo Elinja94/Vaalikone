@@ -2,17 +2,18 @@ package dao;
 
 // Importing everything we need in this app
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 
+import data.Answer;
 import data.Question;
 
 public class Dao {
@@ -158,6 +159,190 @@ public class Dao {
 		
 		return null;
 		
+	}
+
+	
+	public ArrayList<Candidate> addCandidate(Candidate c) {
+		String sql="insert into ehdokkaat (EHDOKAS_ID, SUKUNIMI, ETUNIMI, PUOLUE, KOTIPAIKKAKUNTA, IKA, MIKSI_EDUSKUNTAAN, MITA_ASIOITA_HALUAT_EDUSTAA, AMMATTI) values(?, ?, ?, ?)";
+		try {
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getEhdokas_id());
+			pstmt.setString(2, c.getEtunimi());
+			pstmt.setString(3, c.getSukunimi());
+			pstmt.setString(4, c.getPuolue());
+			pstmt.setString(5, c.getKotipaikkakunta());
+			pstmt.setString(6, c.getIka());
+			pstmt.setString(7, c.getMiksi_eduskuntaan());
+			pstmt.setString(8, c.getMita_asioita_haluat_edistaa());
+			pstmt.setString(9, c.getAmmatti());
+			pstmt.executeUpdate();
+			return readCandidates(candidateId);
+		} 
+		catch(SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	public ArrayList<Candidate> deleteCandidate(String id) {
+		try {
+			String sql="delete from ehdokkaat where id=?";
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			return readAllCandidates();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	
+	
+	public ArrayList<Candidate> readCandidate(String candidateId) {
+		ArrayList<Candidate> list=new ArrayList<>();
+		try {			
+			String sql = "select * from ehdokkaat where EHDOKAS_ID=?";
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(candidateId));
+			ResultSet RS=pstmt.executeQuery();
+			
+			while (RS.next()){
+				Candidate c=new Candidate();
+				c.setCandidateId(RS.getInt("EHDOKAS_ID"));
+				c.setLastname(RS.getString("SUKUNIMI"));
+				c.setFirstname(RS.getString("ETUNIMI"));
+				c.setParty(RS.getString("PUOLUE"));
+				c.setFirstname(RS.getString("ETUNIMI"));
+				c.setDomicile(RS.getString("KOTIPAIKKAKUNTA"));
+				c.setAge(RS.getString("IKA"));
+				c.setWhyparliament(RS.getString("MIKSI_EDUSKUNTAAN"));
+				c.setWhatthingsyouwanttopromote(RS.getString("MITA_ASIOITA_HALUAT_EDISTAA"));
+				c.setProfession(RS.getString("AMMATTI"));
+				list.add(c);
+			}
+			return list;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+  
+  // Questions
+	public ArrayList<Question> readAllQuestions() {
+		if (getConnection() == true) {
+			ArrayList<Question> list=new ArrayList<>();
+			try {
+				Statement stmt=conn.createStatement();
+				ResultSet RS=stmt.executeQuery("select * from kysymykset");
+				while (RS.next()){
+					Question q=new Question();
+					q.setId(RS.getInt("KYSYMYS_ID"));
+					q.setQuestion(RS.getString("KYSYMYS"));
+					list.add(q);
+				}
+				return list;
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
+	
+	// Answers
+	public ArrayList<Answer> readCandidateAnswers(String candidateId) {
+		if (getConnection() == true) {
+			ArrayList<Answer> list=new ArrayList<>();
+			try {			
+				String sql = "select * from vastaukset where EHDOKAS_ID=?";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(candidateId));
+				ResultSet RS=pstmt.executeQuery();
+				
+				while (RS.next()){
+					Answer a=new Answer();
+					a.setCandidateId(RS.getInt("EHDOKAS_ID"));
+					a.setQuestionId(RS.getInt("KYSYMYS_ID"));
+					a.setAnswer(RS.getString("VASTAUS"));
+					list.add(a);
+				}
+				return list;
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
+	
+	public ArrayList<Answer> insertAnswer(String candidateId, String questionId, String answer) {
+		if (getConnection() == true) {
+			try {
+				String sql="insert into vastaukset (EHDOKAS_ID, KYSYMYS_ID, VASTAUS, KOMMENTTI) values(?, ?, ?, ?)";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(candidateId));
+				pstmt.setInt(2, Integer.parseInt(questionId));
+				pstmt.setString(3, answer);
+				pstmt.setString(4, String.format("ehdokkaan %s vastaus kysymykseen %s", candidateId, questionId));
+				pstmt.execute();
+				return readCandidateAnswers(candidateId);
+			} 
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
+	
+	public ArrayList<Answer> updateAnswer(Answer a) {
+		if (getConnection() == true) {
+			try {
+				String sql="update vastaukset set VASTAUS=? where EHDOKAS_ID=? and KYSYMYS_ID=?";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, a.getAnswer());
+				pstmt.setInt(2, a.getCandidateId());
+				pstmt.setInt(3, a.getQuestionId());
+				pstmt.executeUpdate();
+				return readCandidateAnswers("" + a.getCandidateId());
+			}
+			catch(Exception e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
+	
+	public Answer readAnswer(String candidateId, String questionId) {
+		if (getConnection() == true) {
+			Answer a=null;
+			try {
+				String sql = "select * from vastaukset where EHDOKAS_ID=? and KYSYMYS_ID=?";
+				PreparedStatement pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, candidateId);
+				pstmt.setString(2, questionId);
+				ResultSet RS=pstmt.executeQuery();
+			
+				while (RS.next()){
+					a=new Answer();
+
+					a.setCandidateId(RS.getInt("EHDOKAS_ID"));
+					a.setQuestionId(RS.getInt("KYSYMYS_ID"));
+					a.setAnswer(RS.getString("VASTAUS"));
+					a.setComment(RS.getString("KOMMENTTI"));
+				}
+				return a;
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
 	}
 	
 }
