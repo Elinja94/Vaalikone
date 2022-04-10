@@ -11,26 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
-
+import data.Candidate;
 
 @WebServlet(
-		name = "AddCandidate",
-		urlPatterns = {"/addcandidate"}
-		)
-
-public class AddCandidate extends HttpServlet {
+	    name = "EditCandidateForm",
+	    urlPatterns = {"/muokkaaEhdokas"}
+	)
+public class EditCandidateForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	
-	
-    public AddCandidate() {
+       
+    public EditCandidateForm() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -41,16 +34,23 @@ public class AddCandidate extends HttpServlet {
 		
 		// Checking is there a current session
 	    if (myName != null) {
-	    	String question = request.getParameter("candidate");
+	    	String id = request.getParameter("id");
+	    	Candidate c = null;
 	    	
-	    	// Checking if where able to add candidate
-	    	if (Dao.addCandidate(candidate) != null) {
-	    		response.sendRedirect("/ehdokkaat");
+	    	// Making sure that there is an id so can get the information about question to the form
+	    	if (id != null) {	
+	    		c = Dao.readCandidate(id);
+	    		
+	    		request.setAttribute("candidate", c);
+	    		RequestDispatcher rd=request.getRequestDispatcher("/jsp/EditCandidate.jsp");
+	    		rd.forward(request, response);
+		    	
 	    	}
 	    	
-	    	// If not able to add candidate (just in case)
+	    	// If there is no id
 	    	else {
-	    		response.sendRedirect("/lisaaEhdokas");
+	    		response.sendRedirect("/ehdokkaat");
+	    		
 	    	}
 	    	
 	    }
@@ -59,7 +59,7 @@ public class AddCandidate extends HttpServlet {
 	    else {
 	    	response.sendRedirect("http://localhost:8080/");
 	    }
-	    
+		
 	}
 
 }

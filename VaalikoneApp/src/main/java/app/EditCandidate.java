@@ -1,8 +1,8 @@
 package app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,28 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
+import data.Candidate;
 
 
 @WebServlet(
-		name = "AddCandidate",
-		urlPatterns = {"/addcandidate"}
-		)
-
-public class AddCandidate extends HttpServlet {
+	    name = "EditCandidate",
+	    urlPatterns = {"/muokkaaEhdokasVahvistus"}
+	)
+public class EditCandidate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	
-	
-    public AddCandidate() {
+       
+    public EditCandidate() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
@@ -41,16 +34,22 @@ public class AddCandidate extends HttpServlet {
 		
 		// Checking is there a current session
 	    if (myName != null) {
-	    	String question = request.getParameter("candidate");
+	    	String id = request.getParameter("id");
+	    	String cand = request.getParameter("candidate");
 	    	
-	    	// Checking if where able to add candidate
-	    	if (Dao.addCandidate(candidate) != null) {
+	    	// Checking is there something in the question
+	    	if (id != null && !cand.isEmpty()) {
+	    		Candidate c = new Candidate(id, cand);
+	    		ArrayList<Candidate> list = null;
+	    		list = Dao.updateCandidate(c);
 	    		response.sendRedirect("/ehdokkaat");
+		    	
 	    	}
 	    	
-	    	// If not able to add candidate (just in case)
+	    	// If no question or id was given
 	    	else {
-	    		response.sendRedirect("/lisaaEhdokas");
+	    		response.sendRedirect("/ehdokkaat");
+	    		
 	    	}
 	    	
 	    }
@@ -59,7 +58,7 @@ public class AddCandidate extends HttpServlet {
 	    else {
 	    	response.sendRedirect("http://localhost:8080/");
 	    }
-	    
+		
 	}
 
 }
