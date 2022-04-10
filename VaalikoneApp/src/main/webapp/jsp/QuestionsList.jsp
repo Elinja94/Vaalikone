@@ -13,10 +13,10 @@
 
 	</head>
 	<body>
-		<h1>Kaikki kysymykset</h1>
+		<h2>Kaikki kysymykset</h2>
 	<c:forEach var="question" items="${requestScope.questionsList}" >
-		<li>${question.id}: ${question.question}</li>
+	${question.id}: ${question.question} <a href='/poistaKysymys?id=${question.id}'>Poista</a> <a href='/muokkaaKysymys?id=${question.id}'>Muokkaa</a><br>
 	</c:forEach>
-	</ol>
+	<a href="/lisaaKysymys">Lisää kysmys</a>
 	</body>
 </html>

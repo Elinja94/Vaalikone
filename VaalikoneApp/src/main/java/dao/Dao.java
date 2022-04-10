@@ -136,7 +136,6 @@ public class Dao {
 				Statement stmt = conn.createStatement();
 				ResultSet result = stmt.executeQuery("SELECT * FROM kysymykset");
 				
-				
 				// Putting data to the arraylist
 				while (result.next()) {
 					Question ques = new Question();
@@ -157,6 +156,112 @@ public class Dao {
 			}
 		}
 		
+		return null;
+		
+	}
+	
+	// Getting information from specific question with specific id -Sonja
+	public static Question readQuestion(String id) {
+		Question q = new Question();
+		
+		// Connection to the database
+		if (getConnection() == true) {
+			
+			// Selecting everything from the kysymykset table with the given id and preparing them to be used
+			try {
+				PreparedStatement pstmt=conn.prepareStatement("SELECT * FROM kysymykset WHERE KYSYMYS_ID=?");
+				pstmt.setString(1, id);
+				ResultSet RS = pstmt.executeQuery();
+				
+				RS.next();	
+				q.setId(RS.getInt(1));
+				q.setQuestion(RS.getString(2));
+				System.out.print(q);
+				
+				return q;
+				
+			} 
+			
+			// Just in case if something goes wrong
+			catch (SQLException e) {
+				return null;
+				
+			}
+		}
+		
+		return null;
+		
+	}
+	
+	// Adding question to the database -Sonja
+	public static ArrayList<Question> addQuestion(String Question) {
+		
+		ArrayList<Question> questionsList = listOfQuestions();
+		
+		// Connection to the database
+		if (getConnection() == true) {
+			
+			// Adding with the given question information
+			try {
+				PreparedStatement pstmt=conn.prepareStatement("INSERT INTO kysymykset (KYSYMYS_ID, KYSYMYS) values(?, ?)");
+				pstmt.setInt(1, questionsList.size()+1);
+				pstmt.setString(2, Question);
+				pstmt.execute();
+				return questionsList;
+			} 
+			
+			// Just in case if something goes wrong
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+	
+	// Updating question information to the database -Sonja
+		public static ArrayList<Question> updateQuestion(Question q) {
+						
+			// Connection to the database
+			if (getConnection() == true) {
+				
+				// Updating with the given question information
+				try {
+					PreparedStatement pstmt=conn.prepareStatement("UPDATE kysymykset SET KYSYMYS=? where KYSYMYS_ID=?");
+					pstmt.setString(1, q.getQuestion());
+					pstmt.setInt(2, q.getId());
+					pstmt.executeUpdate();
+					return listOfQuestions();
+				} 
+				
+				// Just in case if something goes wrong
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return null;
+
+		}
+	
+	// Delete question from the database with specific id -Sonja
+	public static ArrayList<Question> deleteQuestion (String id) {
+		
+		// Connection to the database
+		if (getConnection() == true) {
+			
+			// Deleting from database with the given id
+			try {
+				PreparedStatement pstmt=conn.prepareStatement("DELETE FROM kysymykset WHERE KYSYMYS_ID=?");
+				pstmt.setString(1, id);
+				pstmt.execute();
+				return listOfQuestions();
+			} 
+			
+			// Just in case if something goes wrong
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return null;
 		
 	}
