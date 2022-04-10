@@ -12,56 +12,52 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
-import data.Candidate;
+import data.Question;
 
-
-/**
- * Servlet implementation class QuestionsList
- */
 @WebServlet(
-	    name = "CandidatesList",
-	    urlPatterns = {"/ehdokkaat"}
+	    name = "DeleteQuestion",
+	    urlPatterns = {"/poistaKysymys"}
 	)
-public class CandidatesList extends HttpServlet {
+public class DeleteQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CandidatesList() {
+
+    public DeleteQuestion() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
 		String myName = (String)session.getAttribute("uname");
 		
+		// Checking is there a current session
 	    if (myName != null) {
-			ArrayList<Candidate> listOfCandidates = null;
-			if (Dao.getConnection() == true) {
-				listOfCandidates = Dao.listOfCandidates();
-				
-			}
-			
-			else {
-				System.out.println("Not connected to the database");
-				
-			}
-			
-			request.setAttribute("candidatesList", listOfCandidates);
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/CandidatesList.jsp");
-			rd.forward(request, response);
+	    	String id = request.getParameter("id");
+	    	ArrayList<Question> list = null;
+	    	
+	    	// Checking that there is given an id so can delete
+	    	if (id != null) {
+	    		list = Dao.deleteQuestion(id);
+		    	response.sendRedirect("/kysymykset");
+		    	
+	    	}
+	    	
+	    	// If no id was given
+	    	else {
+	    		response.sendRedirect("/kysymykset");
+	    		
+	    	}
+	    	
 	    }
 	    
+	    // If there is no session
 	    else {
 	    	response.sendRedirect("http://localhost:8080/");
 	    }
+		
 	}
 
 }

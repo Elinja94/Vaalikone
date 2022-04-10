@@ -18,7 +18,10 @@ import data.Question;
 /**
  * Servlet implementation class QuestionsList
  */
-@WebServlet("/QuestionsList")
+@WebServlet(
+	    name = "QuestionsList",
+	    urlPatterns = {"/kysymykset"}
+	)
 public class QuestionsList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

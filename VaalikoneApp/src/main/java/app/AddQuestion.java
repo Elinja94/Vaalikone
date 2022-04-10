@@ -12,18 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 
-
 @WebServlet(
-		name = "AddCandidate",
-		urlPatterns = {"/lisaaEhdokasVahvistus"}
-		)
-
-public class AddCandidate extends HttpServlet {
+	    name = "AddQuestion",
+	    urlPatterns = {"/lisaaKysymysVahvistus"}
+	)
+public class AddQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	
-	
-    public AddCandidate() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddQuestion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +30,6 @@ public class AddCandidate extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Information needed to check session status
@@ -41,23 +39,16 @@ public class AddCandidate extends HttpServlet {
 		
 		// Checking is there a current session
 	    if (myName != null) {
-	    	String sukunimi = request.getParameter("sukunimi");
-	    	String etunimi = request.getParameter("etunimi");
-	    	String puolue = request.getParameter("puolue");
-	    	String kotipaikkakunta = request.getParameter("kotipaikkakunta");
-	    	String ika = request.getParameter("ika");
-	    	String miksi_eduskuntaan = request.getParameter("miksi_eduskuntaan");
-	    	String mita_asioita_haluat_edistaa = request.getParameter("mita_asioita_haluat_edistaa");
-	    	String ammatti = request.getParameter("ammatti");
+	    	String question = request.getParameter("question");
 	    	
-	    	// Checking if where able to add candidate
-	    	if (Dao.addCandidate(sukunimi, etunimi, puolue, kotipaikkakunta, ika, miksi_eduskuntaan, mita_asioita_haluat_edistaa, ammatti) != null) {
-	    		response.sendRedirect("/ehdokkaat");
+	    	// Checking if where able to add question
+	    	if (Dao.addQuestion(question) != null) {
+	    		response.sendRedirect("/kysymykset");
 	    	}
 	    	
-	    	// If not able to add candidate (just in case)
+	    	// If not able to add question (just in case)
 	    	else {
-	    		response.sendRedirect("/lisaaEhdokas");
+	    		response.sendRedirect("/lisaaKysymys");
 	    	}
 	    	
 	    }

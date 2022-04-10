@@ -1,6 +1,7 @@
 package app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
+import data.Candidate;
+import data.Question;
 
 
 @WebServlet(
-		name = "AddCandidate",
-		urlPatterns = {"/lisaaEhdokasVahvistus"}
+		name = "EditCandidate",
+		urlPatterns = {"/muokkaaEhdokasVahvistus"}
 		)
 
-public class AddCandidate extends HttpServlet {
+public class EditCandidate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
 	
-    public AddCandidate() {
+    public EditCandidate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,6 +44,7 @@ public class AddCandidate extends HttpServlet {
 		
 		// Checking is there a current session
 	    if (myName != null) {
+	    	String id = request.getParameter("id");
 	    	String sukunimi = request.getParameter("sukunimi");
 	    	String etunimi = request.getParameter("etunimi");
 	    	String puolue = request.getParameter("puolue");
@@ -51,13 +55,16 @@ public class AddCandidate extends HttpServlet {
 	    	String ammatti = request.getParameter("ammatti");
 	    	
 	    	// Checking if where able to add candidate
-	    	if (Dao.addCandidate(sukunimi, etunimi, puolue, kotipaikkakunta, ika, miksi_eduskuntaan, mita_asioita_haluat_edistaa, ammatti) != null) {
+	    	if (id != null && !sukunimi.isEmpty() && !etunimi.isEmpty() && !puolue.isEmpty() && !kotipaikkakunta.isEmpty() && !ika.isEmpty() && !miksi_eduskuntaan.isEmpty() && !mita_asioita_haluat_edistaa.isEmpty() && !ammatti.isEmpty()) {
+	    		Candidate c = new Candidate(id, sukunimi, etunimi, puolue, kotipaikkakunta, ika, miksi_eduskuntaan, mita_asioita_haluat_edistaa, ammatti);
+	    		ArrayList<Candidate> list = null;
+	    		list = Dao.updateCandidate(c);
 	    		response.sendRedirect("/ehdokkaat");
 	    	}
 	    	
 	    	// If not able to add candidate (just in case)
 	    	else {
-	    		response.sendRedirect("/lisaaEhdokas");
+	    		response.sendRedirect("/ehdokkaat");
 	    	}
 	    	
 	    }
