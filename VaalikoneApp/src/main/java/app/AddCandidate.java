@@ -15,7 +15,7 @@ import dao.Dao;
 
 @WebServlet(
 		name = "AddCandidate",
-		urlPatterns = {"/addcandidate"}
+		urlPatterns = {"/lisaaEhdokasVahvistus"}
 		)
 
 public class AddCandidate extends HttpServlet {
@@ -41,10 +41,17 @@ public class AddCandidate extends HttpServlet {
 		
 		// Checking is there a current session
 	    if (myName != null) {
-	    	String question = request.getParameter("candidate");
+	    	String sukunimi = request.getParameter("sukunimi");
+	    	String etunimi = request.getParameter("etunimi");
+	    	String puolue = request.getParameter("puolue");
+	    	String kotipaikkakunta = request.getParameter("kotipaikkakunta");
+	    	String ika = request.getParameter("ika");
+	    	String miksi_eduskuntaan = request.getParameter("miksi_eduskuntaan");
+	    	String mita_asioita_haluat_edistaa = request.getParameter("mita_asioita_haluat_edistaa");
+	    	String ammatti = request.getParameter("ammatti");
 	    	
 	    	// Checking if where able to add candidate
-	    	if (Dao.addCandidate(candidate) != null) {
+	    	if (Dao.addCandidate(sukunimi, etunimi, puolue, kotipaikkakunta, ika, miksi_eduskuntaan, mita_asioita_haluat_edistaa, ammatti) != null) {
 	    		response.sendRedirect("/ehdokkaat");
 	    	}
 	    	
