@@ -22,7 +22,7 @@ import data.Question;
 public class CandidateQuestions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao = null;
-	private String candidateId = "6";
+	private String candidateId = null;
 	
 	@Override
 	public void init() {
@@ -54,8 +54,8 @@ public class CandidateQuestions extends HttpServlet {
 		response.setContentType("text/html");
 		
 		if (isAuthenticated(request)) {
-			String queryString = request.getQueryString();
 			String question = "1";
+			String queryString = request.getQueryString();
 			
 			if (queryString != null) {
 				String[] params  = queryString.split("&"); 
@@ -63,7 +63,15 @@ public class CandidateQuestions extends HttpServlet {
 				for (String param : params) {
 					if (param.startsWith("question=")) {
 						String[] temp = param.split("=");
+						
+						if (temp != null && temp.length > 1)
 						question = temp[1];
+					}
+					else if (param.startsWith("candidate=")) {
+						String[] temp = param.split("=");
+						
+						if (temp != null && temp.length > 1)
+						candidateId = temp[1];
 					}
 				}			
 			}
@@ -71,7 +79,11 @@ public class CandidateQuestions extends HttpServlet {
 			ArrayList<Question> questionList=null;
 			questionList=dao.readAllQuestions();
 			
-			if (questionList == null) {
+			if (candidateId == null) {
+				response.getWriter().println("Candidate id is missing");
+			}
+			
+			else if (questionList == null) {
 				response.getWriter().println("Couldn't get questions");
 			}
 			
