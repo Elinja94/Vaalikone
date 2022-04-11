@@ -69,7 +69,7 @@ public class Dao {
 		
 		url = "jdbc:mysql://localhost:3306/vaalikone";
 		user= "root";
-		pass= "Palvelin";
+		pass= "root";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -283,7 +283,14 @@ public class Dao {
 				while (result.next()) {
 					Candidate cand = new Candidate();
 					cand.setId(result.getInt(1));
-					cand.setCandidate(result.getString(2));
+					cand.setSukunimi(result.getString(2));
+					cand.setEtunimi(result.getString(3));
+					cand.setPuolue(result.getString(4));
+					cand.setKotipaikkakunta(result.getString(5));
+					cand.setIka(result.getInt(6));
+					cand.setMiksi_eduskuntaan(result.getString(7));
+					cand.setMita_asioita_haluat_edistaa(result.getString(8));
+					cand.setAmmatti(result.getString(9));
 					candidatesList.add(cand);
 					
 				}
@@ -318,7 +325,14 @@ public class Dao {
 				
 				RS.next();	
 				c.setId(RS.getInt(1));
-				c.setCandidate(RS.getString(2));
+				c.setSukunimi(RS.getString(2));
+				c.setEtunimi(RS.getString(3));
+				c.setPuolue(RS.getString(4));
+				c.setKotipaikkakunta(RS.getString(5));
+				c.setIka(RS.getInt(6));
+				c.setMiksi_eduskuntaan(RS.getString(7));
+				c.setMita_asioita_haluat_edistaa(RS.getString(8));
+				c.setAmmatti(RS.getString(9));
 				System.out.print(c);
 				
 				return c;
@@ -337,7 +351,7 @@ public class Dao {
 	}
 	
 	// Adding candidate to the database -Kaisa
-	public static ArrayList<Candidate> addCandidate(String ehdokasID, String sukunimi, String etunimi, String puolue, String kotipaikkakunta, String ika, String miksi_edustuntaan, String mita_asiaoita_haluat_edustaa, String ammatti ) {
+	public static ArrayList<Candidate> addCandidate(String sukunimi, String etunimi, String puolue, String kotipaikkakunta, String ika, String miksi_eduskuntaan, String mita_asioita_haluat_edistaa, String ammatti ) {
 		
 		ArrayList<Candidate> candidatesList = listOfCandidates();
 		
@@ -346,18 +360,16 @@ public class Dao {
 			
 			// Adding with the given question information
 			try {
-				PreparedStatement pstmt=conn.prepareStatement("INSERT INTO ehdokkaat (EHDOKAS_ID, SUKUNIMI, ETUNIMI, PUOLUE, KOTIPAIKKAKUNTA, IKA, MIKSI_EDUSKUNTAAN, MITA_ASIOITA_HALUAT_EDUSTAA, AMMATTI) values(?, ?, ?, ?)");
+				PreparedStatement pstmt=conn.prepareStatement("INSERT INTO ehdokkaat (EHDOKAS_ID, SUKUNIMI, ETUNIMI, PUOLUE, KOTIPAIKKAKUNTA, IKA, MIKSI_EDUSKUNTAAN, MITA_ASIOITA_HALUAT_EDISTAA, AMMATTI) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				pstmt.setInt(1, candidatesList.size()+1);
 				pstmt.setString(2, sukunimi);
-				pstmt.setInt(1, Ehdokas_id);
-				pstmt.setString(2, Etunimi);
-				pstmt.setString(3, Sukunimi);
-				pstmt.setString(4, Puolue);
-				pstmt.setString(5, Kotipaikkakunta);
-				pstmt.setString(6, c.getIka());
-				pstmt.setString(7, c.getMiksi_eduskuntaan());
-				pstmt.setString(8, c.getMita_asioita_haluat_edistaa());
-				pstmt.setString(9, c.getAmmatti());
+				pstmt.setString(3, etunimi);
+				pstmt.setString(4, puolue);
+				pstmt.setString(5, kotipaikkakunta);
+				pstmt.setInt(6, Integer.parseInt(ika));
+				pstmt.setString(7, miksi_eduskuntaan);
+				pstmt.setString(8, mita_asioita_haluat_edistaa);
+				pstmt.setString(9, ammatti);
 
 				pstmt.execute();
 				return candidatesList;
@@ -378,11 +390,20 @@ public class Dao {
 		// Connection to the database
 		if (getConnection() == true) {
 			
-			// Updating with the given question information
+			// Updating with the given candidates information
 			try {
-				PreparedStatement pstmt=conn.prepareStatement("UPDATE ehdokkaat SET EHDOKAS=? where EHDOKAS_ID=?");
-				pstmt.setString(1, c.getCandidate());
-				pstmt.setInt(2, c.getId());
+				PreparedStatement pstmt=conn.prepareStatement("UPDATE ehdokkaat SET SUKUNIMI=?, ETUNIMI=?, PUOLUE=?, KOTIPAIKKAKUNTA=?, IKA=?, MIKSI_EDUSKUNTAAN=?, MITA_ASIOITA_HALUAT_EDISTAA=?, AMMATTI=?  where EHDOKAS_ID=? ");
+				pstmt.setString(1, c.getSukunimi());
+				pstmt.setString(2, c.getEtunimi());
+				pstmt.setString(3, c.getPuolue());
+				pstmt.setString(4, c.getKotipaikkakunta());
+				pstmt.setInt(5, c.getIka());
+				pstmt.setString(6, c.getMiksi_eduskuntaan());
+				pstmt.setString(7, c.getMita_asioita_haluat_edistaa());
+				pstmt.setString(8, c.getAmmatti());
+				pstmt.setInt(9, c.getId());
+		
+				
 				pstmt.executeUpdate();
 				return listOfCandidates();
 			} 
