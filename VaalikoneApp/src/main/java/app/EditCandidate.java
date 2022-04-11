@@ -40,10 +40,9 @@ public class EditCandidate extends HttpServlet {
 		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
-		
+				
 		// Checking is there a current session
-	    if (myName != null) {
+	    if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	String sukunimi = request.getParameter("sukunimi");
 	    	String etunimi = request.getParameter("etunimi");
