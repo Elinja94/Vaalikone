@@ -2,6 +2,7 @@
 package app;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +27,9 @@ public class AddQuestion extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Way to print out later
+		PrintWriter out = response.getWriter();
+		
 		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
@@ -35,13 +39,21 @@ public class AddQuestion extends HttpServlet {
 	    	String question = request.getParameter("question");
 	    	
 	    	// Checking if where able to add question
-	    	if (Dao.addQuestion(question) != null) {
-	    		response.sendRedirect("/kysymykset");
+	    	if (Dao.addQuestion(question) != null && !question.isEmpty()) {
+		    	out.println("<script type='text/javascript'>");
+		    	out.println("alert('Kysymys lisätty');");
+		    	out.println("location='/kysymykset';");
+		    	out.println("</script>");
+	    		
 	    	}
 	    	
 	    	// If not able to add question (just in case)
 	    	else {
-	    		response.sendRedirect("/lisaaKysymys");
+	    		out.println("<script type='text/javascript'>");
+		    	out.println("alert('Kysymystä ei lisätty');");
+		    	out.println("location='/lisaaKysymys';");
+		    	out.println("</script>");
+		    	
 	    	}
 	    	
 	    }
