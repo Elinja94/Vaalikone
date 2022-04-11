@@ -1,3 +1,4 @@
+// Made by Sonja
 package app;
 
 import java.io.IOException;
@@ -28,10 +29,9 @@ public class AddQuestionForm extends HttpServlet {
 		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
-		
+				
 		// Checking is there a current session and then displays the form
-	    if (myName != null) {
+	    if (session != null && session.getAttribute("uname") != null) {
 	    	RequestDispatcher rd = request.getRequestDispatcher("/jsp/AddQuestion.jsp");
 			rd.forward(request, response);
 			

@@ -1,3 +1,4 @@
+// Made by Sonja
 package app;
 
 import java.io.IOException;
@@ -32,9 +33,8 @@ public class Admin extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
 		
-	    if (myName != null) {
+	    if (session != null && session.getAttribute("uname") != null) {
 	    	RequestDispatcher rd = request.getRequestDispatcher("/jsp/Admin.jsp");
 			rd.forward(request, response);
 	    }
