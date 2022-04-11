@@ -17,8 +17,13 @@
     <%
 	Question question=(Question)request.getAttribute("question");
     String method=(String)request.getAttribute("method");
+    
+    int nextQuestion = question.getId() + 1;
+    if (request.getAttribute("nextQuestion") != null) {
+    	nextQuestion = ((Question)request.getAttribute("nextQuestion")).getId();
+    }
 	%>
-	    <form action=/CandidateQuestions?question=<%= question.getId() + 1 %> method="POST">
+	    <form action=/ehdokkaankysymykset?question=<%= nextQuestion %> method="POST">
 			<h3><%= question.getId() %>. <%= question.getQuestion() %></h3>
 			<input type="hidden" name="questionId" value=<%= question.getId() %>></input>
 			<input type="hidden" name="method" value=<%= method %>></input>

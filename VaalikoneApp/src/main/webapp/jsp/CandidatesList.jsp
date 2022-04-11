@@ -15,7 +15,7 @@
 	<body>
 		<h1>Kaikki ehdokkaat</h1>
 	<c:forEach var="candidate" items="${requestScope.candidatesList}" >
-		${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.puolue} ${candidate.kotipaikkakunta} ${candidate.ika} ${candidate.miksi_eduskuntaan} ${candidate.mita_asioita_haluat_edistaa} ${candidate.ammatti} <a href='/poistaEhdokas?id=${candidate.id}'>Poista</a> <a href='/muokkaaEhdokas?id=${candidate.id}'>Muokkaa</a> <a href='/CandidateQuestions?candidate=${candidate.id}'>Muokkaa vastauksia</a><br>
+		${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.puolue} ${candidate.kotipaikkakunta} ${candidate.ika} ${candidate.miksi_eduskuntaan} ${candidate.mita_asioita_haluat_edistaa} ${candidate.ammatti} <a href='/poistaEhdokas?id=${candidate.id}'>Poista</a> <a href='/muokkaaEhdokas?id=${candidate.id}'>Muokkaa</a> <a href='/ehdokkaankysymykset?candidate=${candidate.id}'>Muokkaa vastauksia</a><br>
 	</c:forEach>
 	<a href="/lisaaEhdokas">Lisää ehdokas</a>
 	</body>
