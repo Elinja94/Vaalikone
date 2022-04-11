@@ -2,6 +2,7 @@
 package app;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -21,10 +22,13 @@ public class Login extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Way to print out later
+		PrintWriter out = response.getWriter();
 		
 		// Sends information to check if they are correct
-		response.setContentType("text/plain");
+		response.setContentType("text/html");
 	    response.setCharacterEncoding("UTF-8");
 
 	    String user = request.getParameter("username");
@@ -47,14 +51,20 @@ public class Login extends HttpServlet {
 			
 	    	// If either password or username is wrong
 			else {
-				response.sendRedirect("http://localhost:8080/");
+				out.println("<script type='text/javascript'>");
+		    	out.println("alert('K‰ytt‰j‰tunnus tai salasana on v‰‰rin');");
+		    	out.println("location='http://localhost:8080/';");
+		    	out.println("</script>");
 				
 			}
 	    }
 	    
 	    // If no password or username was entered
 	    else {
-	    	response.sendRedirect("http://localhost:8080/");
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('K‰ytt‰j‰tunnusta tai salasanaa ei annettu');");
+	    	out.println("location='http://localhost:8080/';");
+	    	out.println("</script>");
 	    	
 	    }
 	}
