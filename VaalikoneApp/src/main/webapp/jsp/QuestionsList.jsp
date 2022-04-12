@@ -15,7 +15,7 @@
 	<body>
 		<h2>Kaikki kysymykset</h2>
 	<c:forEach var="question" items="${requestScope.questionsList}" >
-	${question.id}: ${question.question} <a href='/poistaKysymys?id=${question.id}'>Poista</a> <a href='/muokkaaKysymys?id=${question.id}'>Muokkaa</a><br>
+	${question.id}: ${question.question} <a href='/poistaKysymys?id=${question.id}' onclick='return confirm("Haluatko varmasti poistaa kysymyksen: ${question.question}?");'>Poista</a> <a href='/muokkaaKysymys?id=${question.id}'>Muokkaa</a><br>
 	</c:forEach>
 	<a href="/lisaaKysymys">Lisää kysmys</a>
 	</body>
