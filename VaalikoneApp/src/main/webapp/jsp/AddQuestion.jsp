@@ -9,14 +9,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fi">
 	<head>
 		<meta http-equiv="content-type" content="application/xhtml+xml" charset="UTF-8">
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Marck+Script&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
+		<link rel="icon" type="image/x-icon" href="/images/favicon.png">
 		<title>Vaalikone Admin - Lisää kysymys</title>
 	</head>
 	<body>
-	
-	<form action="/lisaaKysymysVahvistus" method="GET">
-    	Kysymys:<br> <textarea name="question" rows="6" cols="50"></textarea><br>
-    	<input type="submit" value="Lisää kysymys">
-    </form>
-		
+		<header>
+			<a href="http://localhost:8080/Admin" class="links"><img class="logo" src="/images/logo.png" alt="Vaalikone logo"></a>
+			<a href="/kysymykset" class="links">Lista kysymyksistä</a>
+			<a href="/ehdokkaat" class="links">Lista ehdokkaista</a>
+			<a href="/Logout" class="logout">Kirjaudu ulos</a>
+		</header>
+		<div class="content">
+			<h2>Kysymyksen tiedot:</h2>
+			<form action="/lisaaKysymysVahvistus" method="POST">
+		    	Kysymys:<br> <textarea name="question" rows="6" cols="50"></textarea><br>
+		    	<input type="submit" value="Lisää kysymys" class="button">
+		    </form>
+    	</div>
 	</body>
-	</html>
+</html>
