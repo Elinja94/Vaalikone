@@ -25,6 +25,7 @@
 		</header>
 		<div class="content">
 		<h1>Vaalikone - Admin</h1>
+		<p>Valitse mitä haluat tehdä ylhäältä löytyvästä valikosta.</p>
 		</div>
 	</body>
 </html>
