@@ -1,6 +1,7 @@
 package app;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -131,8 +132,8 @@ public class CandidateQuestions extends HttpServlet {
 			
 			if (inputValid) {
 				if (Integer.parseInt(question) > questionList.size()+1) {
-					response.getWriter().println("Kiitos vastauksista");
-					response.getWriter().println("<a href='/ehdokkaat'>Palaa takaisin ehdokaslistaan<a>");
+					response.getWriter().println("alert('Vastaukset tallennettu');");
+					response.sendRedirect("http://localhost:8080/ehdokkaat");
 				}
 				
 				else {
@@ -182,7 +183,10 @@ public class CandidateQuestions extends HttpServlet {
 			}
 			
 			else if (inputValid) {
-					dao.insertAnswer(candidateId, questionId, answer);					
+					ArrayList<Answer> answers = dao.insertAnswer(candidateId, questionId, answer);	
+					if (answers == null) {
+						response.getWriter().println("alert('Vastausta ei saatu tallennettua');");
+					}
 			}
 				
 			doGet(request,response);
@@ -202,7 +206,10 @@ public class CandidateQuestions extends HttpServlet {
 				
 				if (candidateAnswer != null && checkAnswer(answer, response)) {
 					candidateAnswer.setAnswer(answer);
-					dao.updateAnswer(candidateAnswer);
+					ArrayList<Answer> answers = dao.updateAnswer(candidateAnswer);
+					if (answers == null) {
+						response.getWriter().println("alert('Vastausta ei saatu tallennettua');");
+					}
 				}
 			}
 			
