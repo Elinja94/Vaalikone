@@ -185,7 +185,7 @@ public class CandidateQuestions extends HttpServlet {
 			else if (inputValid) {
 					ArrayList<Answer> answers = dao.insertAnswer(candidateId, questionId, answer);	
 					if (answers == null) {
-						response.getWriter().println("alert('Vastaukset tallennettu');");
+						response.getWriter().println("alert('Vastausta ei saatu tallennettua');");
 					}
 			}
 				
@@ -208,7 +208,7 @@ public class CandidateQuestions extends HttpServlet {
 					candidateAnswer.setAnswer(answer);
 					ArrayList<Answer> answers = dao.updateAnswer(candidateAnswer);
 					if (answers == null) {
-						response.getWriter().println("alert('Vastaukset tallennettu');");
+						response.getWriter().println("alert('Vastausta ei saatu tallennettua');");
 					}
 				}
 			}
