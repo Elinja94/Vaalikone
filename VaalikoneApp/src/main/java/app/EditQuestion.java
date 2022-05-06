@@ -1,6 +1,8 @@
+// Made by Sonja
 package app;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -29,13 +31,15 @@ public class EditQuestion extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Way to print out later
+		PrintWriter out = response.getWriter();
+		
 		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
-		
+				
 		// Checking is there a current session
-	    if (myName != null) {
+	    if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	String ques = request.getParameter("question");
 	    	
@@ -44,13 +48,19 @@ public class EditQuestion extends HttpServlet {
 	    		Question q = new Question(id, ques);
 	    		ArrayList<Question> list = null;
 	    		list = Dao.updateQuestion(q);
-	    		response.sendRedirect("/kysymykset");
+	    		out.println("<script type='text/javascript'>");
+		    	out.println("alert('Kysymys muokattu');");
+		    	out.println("location='/kysymykset';");
+		    	out.println("</script>");
 		    	
 	    	}
 	    	
 	    	// If no question or id was given
 	    	else {
-	    		response.sendRedirect("/kysymykset");
+	    		out.println("<script type='text/javascript'>");
+		    	out.println("alert('Kysymystä ei muokattu');");
+		    	out.println("location='/kysymykset';");
+		    	out.println("</script>");
 	    		
 	    	}
 	    	

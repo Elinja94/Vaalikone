@@ -1,6 +1,7 @@
 package app;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,13 +35,15 @@ public class AddCandidate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Way to print out later
+		PrintWriter out = response.getWriter();
+		
 		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
-		
+				
 		// Checking is there a current session
-	    if (myName != null) {
+	    if (session != null && session.getAttribute("uname") != null) {
 	    	String sukunimi = request.getParameter("sukunimi");
 	    	String etunimi = request.getParameter("etunimi");
 	    	String puolue = request.getParameter("puolue");
@@ -52,12 +55,18 @@ public class AddCandidate extends HttpServlet {
 	    	
 	    	// Checking if where able to add candidate
 	    	if (Dao.addCandidate(sukunimi, etunimi, puolue, kotipaikkakunta, ika, miksi_eduskuntaan, mita_asioita_haluat_edistaa, ammatti) != null) {
-	    		response.sendRedirect("/ehdokkaat");
+		    	out.println("<script type='text/javascript'>");
+		    	out.println("alert('Ehdokas lisätty');");
+		    	out.println("location='/ehdokkaat';");
+		    	out.println("</script>");
 	    	}
 	    	
 	    	// If not able to add candidate (just in case)
 	    	else {
-	    		response.sendRedirect("/lisaaEhdokas");
+		    	out.println("<script type='text/javascript'>");
+		    	out.println("alert('Ehdokasta ei lisätty');");
+		    	out.println("location='/lisaaEhdokas';");
+		    	out.println("</script>");
 	    	}
 	    	
 	    }

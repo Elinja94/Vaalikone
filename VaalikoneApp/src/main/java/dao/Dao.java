@@ -12,6 +12,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import data.Answer;
 import data.Question;
@@ -69,7 +71,7 @@ public class Dao {
 		
 		url = "jdbc:mysql://localhost:3306/vaalikone";
 		user= "root";
-		pass= "root";
+		pass= "Palvelin";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -198,14 +200,17 @@ public class Dao {
 	public static ArrayList<Question> addQuestion(String Question) {
 		
 		ArrayList<Question> questionsList = listOfQuestions();
-		
+
 		// Connection to the database
 		if (getConnection() == true) {
 			
 			// Adding with the given question information
 			try {
 				PreparedStatement pstmt=conn.prepareStatement("INSERT INTO kysymykset (KYSYMYS_ID, KYSYMYS) values(?, ?)");
-				pstmt.setInt(1, questionsList.size()+1);
+				PreparedStatement largestID = conn.prepareStatement("SELECT MAX(KYSYMYS_ID) FROM kysymykset");
+				ResultSet RS = largestID.executeQuery();
+				RS.next();
+				pstmt.setInt(1, RS.getInt(1)+1);
 				pstmt.setString(2, Question);
 				pstmt.execute();
 				return questionsList;
@@ -361,7 +366,10 @@ public class Dao {
 			// Adding with the given question information
 			try {
 				PreparedStatement pstmt=conn.prepareStatement("INSERT INTO ehdokkaat (EHDOKAS_ID, SUKUNIMI, ETUNIMI, PUOLUE, KOTIPAIKKAKUNTA, IKA, MIKSI_EDUSKUNTAAN, MITA_ASIOITA_HALUAT_EDISTAA, AMMATTI) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-				pstmt.setInt(1, candidatesList.size()+1);
+				PreparedStatement largestID = conn.prepareStatement("SELECT MAX(EHDOKAS_ID) FROM ehdokkaat");
+				ResultSet RS = largestID.executeQuery();
+				RS.next();
+				pstmt.setInt(1, RS.getInt(1)+1);
 				pstmt.setString(2, sukunimi);
 				pstmt.setString(3, etunimi);
 				pstmt.setString(4, puolue);

@@ -1,6 +1,7 @@
 package app;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -37,13 +38,15 @@ public class EditCandidate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Way to print out later
+		PrintWriter out = response.getWriter();
+		
 		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
-		
+				
 		// Checking is there a current session
-	    if (myName != null) {
+	    if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	String sukunimi = request.getParameter("sukunimi");
 	    	String etunimi = request.getParameter("etunimi");
@@ -59,12 +62,18 @@ public class EditCandidate extends HttpServlet {
 	    		Candidate c = new Candidate(id, sukunimi, etunimi, puolue, kotipaikkakunta, ika, miksi_eduskuntaan, mita_asioita_haluat_edistaa, ammatti);
 	    		ArrayList<Candidate> list = null;
 	    		list = Dao.updateCandidate(c);
-	    		response.sendRedirect("/ehdokkaat");
+	    		out.println("<script type='text/javascript'>");
+		    	out.println("alert('Ehdokas muokattu');");
+		    	out.println("location='/ehdokkaat';");
+		    	out.println("</script>");
 	    	}
 	    	
 	    	// If not able to add candidate (just in case)
 	    	else {
-	    		response.sendRedirect("/ehdokkaat");
+	    		out.println("<script type='text/javascript'>");
+		    	out.println("alert('Ehdokasta ei muokattu');");
+		    	out.println("location='/ehdokkaat';");
+		    	out.println("</script>");
 	    	}
 	    	
 	    }

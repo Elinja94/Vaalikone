@@ -1,3 +1,4 @@
+// Made by Sonja
 package app;
 
 import java.io.IOException;
@@ -24,16 +25,14 @@ public class EditQuestionForm extends HttpServlet {
         super();
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
-		
+				
 		// Checking is there a current session
-	    if (myName != null) {
+	    if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	Question q = null;
 	    	

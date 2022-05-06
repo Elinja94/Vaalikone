@@ -40,9 +40,8 @@ public class CandidatesList extends HttpServlet {
 
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		String myName = (String)session.getAttribute("uname");
-		
-	    if (myName != null) {
+				
+	    if (session != null && session.getAttribute("uname") != null) {
 			ArrayList<Candidate> listOfCandidates = null;
 			if (Dao.getConnection() == true) {
 				listOfCandidates = Dao.listOfCandidates();

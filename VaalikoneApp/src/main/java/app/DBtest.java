@@ -1,3 +1,4 @@
+// Made by Sonja
 package app;
 
 import java.io.IOException;
@@ -16,17 +17,11 @@ import dao.Dao;
 public class DBtest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public DBtest() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    // This is only a test for db not to be used at all!
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (Dao.getConnection() == true) {
 			
