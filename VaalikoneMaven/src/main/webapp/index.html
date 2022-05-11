@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fi">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml;" charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Marck+Script&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <title>Vaalikone</title>
+  </head>
+
+  <body>
+    <a href="http://localhost:8080/"><img class="logo" src="/images/logo.png" alt="Vaalikone logo"></a>
+    <div class="login">
+    <h1>Tervetuloa käyttämään vaalikonetta</h1>
+	    <h2>Kirjaudu sisään</h2>
+	    <form action="/login" method="POST">
+	    	<p>Käyttäjätunnus:</p><input type="text" size="20" name="username">
+	    	<p>Salasana:</p><input type="password" size="20" name ="password"><br>
+	    	<input type="submit" value="Kirjaudu" class="button">
+	    </form>
+    </div>
+  </body>
+</html>
