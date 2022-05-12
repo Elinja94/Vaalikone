@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,31 +27,24 @@ public class Questions extends HttpServlet {
      */
     public Questions() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		
-		PrintWriter out=response.getWriter();
 		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
 		EntityManager em=emf.createEntityManager();
 		
-		out.println("<h2>Kysymykset</h2>");
 		em.getTransaction().begin();
 		List<Kysymykset> questionlist=em.createQuery("select k from Kysymykset k").getResultList();
 		em.getTransaction().commit();
-		out.println("<ol>");
-		for (Kysymykset k:questionlist) {
-			out.println("<li> "+ k.getQuestion());
-			out.println("<ol>");
-			out.println("</ol>");
-		}
-		out.println("</ol>");
+
+		request.setAttribute("questionlist", questionlist);
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/QuestionForm.jsp");		
+		rd.forward(request, response);	
 
 	}
 
@@ -58,8 +52,10 @@ public class Questions extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String answer = request.getParameter("1");
+		
+		PrintWriter out=response.getWriter();
+		out.println(answer);
 	}
 
 }
