@@ -4,16 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	
 	<persistence-unit name="vaalikone">
-	<class>data.Kysymykset</class>
-		
-<!-- If using MySQL 5.7 -->
-<!--  
-	as a root user give a command
-	use performance_schema; 
-	GRANT SELECT ON performance_schema.session_variables TO pena@localhost;
-	
-	Change pena to the username you are using below in the property jdbc.user.
-	 -->		
+	<class>data.Kysymykset</class>	
 		
 <!--  jdbcDriver == class, where in the implementation of database functions--> 
 <!--  jdbcUrl == address to the database--> 
