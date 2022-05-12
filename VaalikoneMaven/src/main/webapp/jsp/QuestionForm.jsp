@@ -23,7 +23,7 @@
 	%>
 		<div class="content">
 			<h2>Kysymykset</h2>
-			<form action=/questions method="POST">
+			<form action=/vastaakysymyksiin method="POST">
 				<c:forEach var="question" items="${requestScope.questionlist }">
 					<h4><c:out value = "${question.getId()}"/>. <c:out value = "${question.getQuestion()}"/></h4>
 					<input type="radio" name=<c:out value = "${question.getId()}"/> value="1">Vahvasti eri mieltä</input>
