@@ -19,12 +19,24 @@ public class Logout extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Simple way to end a session but not the best
+		// Information needed to check session status
 		response.setContentType("text/html");
 		HttpSession session=request.getSession(false);
-		session.removeAttribute("uname");
-		session.invalidate();
-		response.sendRedirect("http://localhost:8080/");
+				
+		// Checking is there a current session
+	    if (session != null && session.getAttribute("uname") != null) {
+		
+			// Simple way to end a session but not the best
+			response.setContentType("text/html");
+			session.removeAttribute("uname");
+			session.invalidate();
+			response.sendRedirect("http://localhost:8080/");
+	    }
+	    
+	    // If there is no session
+	    else {
+	    	response.sendRedirect("http://localhost:8080/");
+	    }
 		
 	}
 
