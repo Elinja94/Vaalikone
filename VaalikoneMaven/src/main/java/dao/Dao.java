@@ -71,7 +71,7 @@ public class Dao {
 		
 		url = "jdbc:mysql://localhost:3306/vaalikone?useSSL=false&allowPublicKeyRetrieval=true";
 		user= "root";
-		pass= "Palvelin";
+		pass= "Vaalikone123";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {
