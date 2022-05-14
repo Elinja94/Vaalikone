@@ -26,12 +26,15 @@
 	%>
 		<div class="content">
 			<h2>Tulokset</h2>
+			<h3>Samojen vastauksien määrä</h3>
 			    <%
-			    out.println("<h3>Samojen vastauksien määrä</h3>");
 				for (Integer i : sameAnswers.keySet()) {
-					out.println("<p>" + "Kandidaatti " + i + ": " + sameAnswers.get(i) + "</p>");
+					String link = "/candidateInfo?id=" + i;
+					out.println("<p>" + "<a href=" + link + ">" + "Kandidaatti " + i +  "<a/>: " + sameAnswers.get(i) + "</p>");
 				}
 				%>
+				<br><br>
+				<a href="/">Palaa etusivulle</a>
 		   </div>
   </body>
 </html>

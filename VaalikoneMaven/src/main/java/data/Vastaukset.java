@@ -5,9 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQuery;
 
+final class VastauksetId implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int EHDOKAS_ID;
+	private int KYSYMYS_ID;
+	
+	public VastauksetId(int EHDOKAS_ID, int KYSYMYS_ID) {
+		this.EHDOKAS_ID = EHDOKAS_ID;
+		this.KYSYMYS_ID = KYSYMYS_ID;
+	}
+}
+
 @Entity
+@IdClass(VastauksetId.class)
 @NamedQuery(name="Vastaukset.findAll", query="SELECT v FROM Vastaukset v")
 public class Vastaukset implements Serializable {
 	private static final long serialVersionUID = 1L;
