@@ -3,6 +3,8 @@
 <%@ page import="java.util.ArrayList" %>   
 <%@ page import="data.Candidate" %>   
 <%@ page import="data.Question" %>   
+<%@ page import="data.Vastaukset" %>  
+
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
@@ -40,14 +42,16 @@
 			<h3>Ikä: ${candidate.ika}</h3>
 			<h3>Miksi eduskuntaan: ${candidate.miksi_eduskuntaan}</h3>
 			<h3>Mitä asioita haluat edistää: ${candidate.mita_asioita_haluat_edistaa}</h3>
-			<h3>Ammatti: ${candidate.mita_asioita_haluat_edistaa}</h3>
+			<h3>Ammatti: ${candidate.ammatti}</h3>
 			
 
 	<h2>Ehdokkaan vastaukset:</h2>
 	
 				<ul>
 				<c:forEach var="question" items="${requestScope.questionsList}" >
-					<li>${question.id}: ${question.question} <a href='/poistaKysymys?id=${question.id}' onclick='return confirm("Haluatko varmasti poistaa kysymyksen: ${question.question}?");'>Poista</a> <a href='/muokkaaKysymys?id=${question.id}'>Muokkaa</a></li><br>
+				
+				
+					<li>${question.id}: ${question.question} ${answer.answer} </li><br>
 				</c:forEach>
 			</ul>
 
