@@ -17,7 +17,7 @@ import data.Question;
 
 @WebServlet(
 	    name = "QuestionsList",
-	    urlPatterns = {"/kysymykset"}
+	    urlPatterns = {"/admin/kysymykset"}
 	)
 public class QuestionsList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,10 +30,10 @@ public class QuestionsList extends HttpServlet {
 
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 			ArrayList<Question> listOfQuestions = null;
 			
 			// Getting information of the questions
@@ -51,12 +51,12 @@ public class QuestionsList extends HttpServlet {
 				
 			}
 			
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 	}
 
 }

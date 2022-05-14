@@ -20,7 +20,7 @@ import data.Question;
  */
 @WebServlet(
 	    name = "EditQuestion",
-	    urlPatterns = {"/muokkaaKysymysVahvistus"}
+	    urlPatterns = {"/admin/muokkaaKysymysVahvistus"}
 	)
 public class EditQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,10 +36,10 @@ public class EditQuestion extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	String ques = request.getParameter("question");
 	    	
@@ -50,7 +50,7 @@ public class EditQuestion extends HttpServlet {
 	    		list = Dao.updateQuestion(q);
 	    		out.println("<script type='text/javascript'>");
 		    	out.println("alert('Kysymys muokattu');");
-		    	out.println("location='/kysymykset';");
+		    	out.println("location='/admin/kysymykset';");
 		    	out.println("</script>");
 		    	
 	    	}
@@ -58,18 +58,18 @@ public class EditQuestion extends HttpServlet {
 	    	// If no question or id was given
 	    	else {
 	    		out.println("<script type='text/javascript'>");
-		    	out.println("alert('Kysymyst‰ ei muokattu');");
-		    	out.println("location='/kysymykset';");
+		    	out.println("alert('Kysymyst√§ ei muokattu');");
+		    	out.println("location='/admin/kysymykset';");
 		    	out.println("</script>");
 	    		
 	    	}
 	    	
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 		
 	}
 

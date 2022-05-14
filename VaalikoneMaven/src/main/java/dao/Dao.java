@@ -69,9 +69,9 @@ public class Dao {
 	// Checking the connection to the database -Sonja
 	public static boolean getConnection() {
 		
-		url = "jdbc:mysql://localhost:3306/vaalikone?useSSL=false&allowPublicKeyRetrieval=true";
+		url = "jdbc:mysql://localhost:3306/vaalikone?useSSL=false&allowPublicKeyRetrieval=false";
 		user= "root";
-		pass= "Vaalikone123";
+		pass= "Palvelin";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {

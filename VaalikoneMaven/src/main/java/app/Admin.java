@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Admin
  */
-@WebServlet("/Admin")
+@WebServlet("/admin")
 public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,16 +32,16 @@ public class Admin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 		
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	RequestDispatcher rd = request.getRequestDispatcher("/jsp/Admin.jsp");
 			rd.forward(request, response);
-	    }
+	    //}
 	    
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+	    //else {
+	    	//response.sendRedirect("http://localhost:8080/");
+	    //}
 	    
 	}
 

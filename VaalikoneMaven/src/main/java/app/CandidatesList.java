@@ -20,7 +20,7 @@ import data.Candidate;
  */
 @WebServlet(
 	    name = "CandidatesList",
-	    urlPatterns = {"/ehdokkaat"}
+	    urlPatterns = {"/admin/ehdokkaat"}
 	)
 public class CandidatesList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,9 +39,9 @@ public class CandidatesList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 			ArrayList<Candidate> listOfCandidates = null;
 			if (Dao.getConnection() == true) {
 				listOfCandidates = Dao.listOfCandidates();
@@ -56,11 +56,11 @@ public class CandidatesList extends HttpServlet {
 			request.setAttribute("candidatesList", listOfCandidates);
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/CandidatesList.jsp");
 			rd.forward(request, response);
-	    }
+	    //}
 	    
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 	}
 
 }

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(
 	    name = "AddQuestionForm",
-	    urlPatterns = {"/lisaaKysymys"}
+	    urlPatterns = {"/admin/lisaaKysymys"}
 	)
 public class AddQuestionForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,20 +28,20 @@ public class AddQuestionForm extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session and then displays the form
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	RequestDispatcher rd = request.getRequestDispatcher("/jsp/AddQuestion.jsp");
 			rd.forward(request, response);
 			
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    	
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    	
+//	    }
 	    
 	}
 
