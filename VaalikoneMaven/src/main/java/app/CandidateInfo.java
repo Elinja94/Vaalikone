@@ -18,7 +18,9 @@ import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import data.Candidate;
+import data.Kysymykset;
 import data.Question;
+import data.Vastaukset;
 
 /**
  * Servlet implementation class Questions
@@ -57,6 +59,15 @@ public class CandidateInfo extends HttpServlet {
     		listOfQuestions = Dao.listOfQuestions();
     		
     		
+    		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
+    		EntityManager em=emf.createEntityManager();
+    		
+    		em.getTransaction().begin();
+    		
+    		List<Vastaukset> candidateAnswers=em.createQuery("select v from Vastaukset v").getResultList();
+    		em.getTransaction().commit();
+    		
+    		request.setAttribute("candidateAnswers", candidateAnswers);
     		request.setAttribute("candidate", c);
     		request.setAttribute("questionsList", listOfQuestions);
     		RequestDispatcher rd=request.getRequestDispatcher("/jsp/CandidateInfo.jsp");
