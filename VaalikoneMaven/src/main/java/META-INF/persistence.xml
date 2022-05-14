@@ -5,6 +5,7 @@
 	
 	<persistence-unit name="vaalikone">
 	<class>data.Kysymykset</class>	
+	<class>data.Vastaukset</class>
 		
 <!--  jdbcDriver == class, where in the implementation of database functions--> 
 <!--  jdbcUrl == address to the database--> 
