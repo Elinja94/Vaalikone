@@ -24,17 +24,23 @@
     HashMap<Integer, String> userAnswers=(HashMap<Integer, String>)request.getAttribute("userAnswers");
     HashMap<Integer, Integer> sameAnswers=(HashMap<Integer, Integer>)request.getAttribute("sameAnswers");
 	%>
-		<div class="content">
-			<h2>Tulokset</h2>
-			<h3>Samojen vastauksien määrä</h3>
-			    <%
-				for (Integer i : sameAnswers.keySet()) {
-					String link = "/candidateInfo?id=" + i;
-					out.println("<p>" + "<a href=" + link + ">" + "Kandidaatti " + i +  "<a/>: " + sameAnswers.get(i) + "</p>");
-				}
-				%>
-				<br><br>
-				<a href="/">Palaa etusivulle</a>
-		   </div>
+	<header>
+	  	<a href="http://localhost:8080/" class="links"><img class="logo" src="http://localhost:8080/images/logo.png" alt="Vaalikone logo"></a>
+		<a href="/vastaakysymyksiin" class="links">Vastaa kysymyksiin</a>
+		<a href="/candidates" class="links">Ehdokkaat</a>
+		<a href="http://localhost:8080/admin" class="logout">Kirjaudu sisään</a>
+	</header>
+    <div class="content">
+    <h2>Tulokset</h2>
+    <h3>Samojen vastauksien määrä</h3>
+        <%
+      for (Integer i : sameAnswers.keySet()) {
+        String link = "/candidateInfo?id=" + i;
+        out.println("<p>" + "<a href=" + link + ">" + "Kandidaatti " + i +  "<a/>: " + sameAnswers.get(i) + "</p>");
+      }
+      %>
+      <br><br>
+      <a href="/">Palaa etusivulle</a>
+     </div>
   </body>
 </html>

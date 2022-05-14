@@ -12,7 +12,7 @@ body {
 h1 {
 	text-align: center;
 	font-family: 'Marck Script', cursive;
-	font-size: 50px;
+	font-size: 60px;
 	color: #3a3b55;
 	text-shadow: -1px 0 #f3f3f3, 0 1px #f3f3f3, 1px 0 #f3f3f3, 0 -1px #f3f3f3;
 	margin-bottom: -5px;
@@ -130,6 +130,41 @@ li {
 	border: solid 1px;
 	min-height: 20px;
 	padding: 10px;
+	
+}
+
+/* Style for dots */
+.answer {
+	margin-left: 200px;
+	height: 300px;
+	width: 300px;
+	background-color: #e8681a;
+	border-radius: 50%;
+	display: inline-block;
+	text-align: center;
+	line-height: 225px;
+	color: #f3f3f3;
+	font-size: 35px;
+	
+}
+
+.view {
+	margin-left: 700px;
+	margin-top: -200px;
+	height: 300px;
+	width: 300px;
+	background-color: #e8681a;
+	border-radius: 50%;
+	display: inline-block;
+	text-align: center;
+	line-height: 225px;
+	color: #f3f3f3;
+	font-size: 35px;
+	
+}
+
+.dotText {
+	margin: -175px;
 	
 }
 
