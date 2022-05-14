@@ -24,14 +24,20 @@
     HashMap<Integer, String> userAnswers=(HashMap<Integer, String>)request.getAttribute("userAnswers");
     HashMap<Integer, Integer> sameAnswers=(HashMap<Integer, Integer>)request.getAttribute("sameAnswers");
 	%>
-		<div class="content">
-			<h2>Tulokset</h2>
-			    <%
-			    out.println("<h3>Samojen vastauksien määrä</h3>");
-				for (Integer i : sameAnswers.keySet()) {
-					out.println("<p>" + "Kandidaatti " + i + ": " + sameAnswers.get(i) + "</p>");
-				}
-				%>
-		   </div>
+	<header>
+	  	<a href="http://localhost:8080/" class="links"><img class="logo" src="http://localhost:8080/images/logo.png" alt="Vaalikone logo"></a>
+		<a href="/vastaakysymyksiin" class="links">Vastaa kysymyksiin</a>
+		<a href="/candidates" class="links">Ehdokkaat</a>
+		<a href="http://localhost:8080/admin" class="logout">Kirjaudu sisään</a>
+	</header>
+	<div class="content">
+		<h2>Tulokset</h2>
+		    <%
+		    out.println("<h3>Samojen vastauksien määrä</h3>");
+			for (Integer i : sameAnswers.keySet()) {
+				out.println("<p>" + "Kandidaatti " + i + ": " + sameAnswers.get(i) + "</p>");
+			}
+			%>
+	</div>
   </body>
 </html>
