@@ -18,18 +18,21 @@ import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import data.Candidate;
+import data.Kysymykset;
+import data.Question;
+import data.Vastaukset;
 
 /**
  * Servlet implementation class Questions
  */
-@WebServlet("/candidates")
-public class Candidates extends HttpServlet {
+@WebServlet("/candidateInfo")
+public class CandidateInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Candidates() {
+    public CandidateInfo() {
         super();
     }
 
@@ -43,33 +46,49 @@ public class Candidates extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
 				
-	    if (session != null && session.getAttribute("uname") != null) {
-			ArrayList<Candidate> listOfCandidates = null;
-			if (Dao.getConnection() == true) {
-				listOfCandidates = Dao.listOfCandidates();
-				
-			}
-			
-			else {
-				System.out.println("Not connected to the database");
-				
-			}
-			
-			request.setAttribute("candidatesList", listOfCandidates);
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/Candidates.jsp");
-			rd.forward(request, response);
-	    }
+	   
+    	String id = request.getParameter("id");
+    	Candidate c = null;
+    	
+    	ArrayList<Question> listOfQuestions = null;
+    	
+    	// Making sure that there is an id so can get the information about question to the form
+    	if (id != null && Dao.getConnection() == true) {	
+    		c = Dao.readCandidate(id);
+    		listOfQuestions = Dao.listOfQuestions();
+    		
+    		
+    		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
+    		EntityManager em=emf.createEntityManager();
+    		
+    		em.getTransaction().begin();
+    		
+    		List<Vastaukset> candidateAnswers=em.createQuery("select v from Vastaukset v").getResultList();
+    		em.getTransaction().commit();
+    		
+    		request.setAttribute("candidateAnswers", candidateAnswers);
+    		request.setAttribute("candidate", c);
+    		request.setAttribute("questionsList", listOfQuestions);
+    		RequestDispatcher rd=request.getRequestDispatcher("/jsp/CandidateInfo.jsp");
+    		rd.forward(request, response);
+	    	
+    	}
+    	
+    	// If there is no id
+    	else {
+    		response.sendRedirect("/candidates");
+    		System.out.println("Not connected to the database");
+    		
+    	}
+    	
 	    
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String candidate = request.getParameter("1");
 		

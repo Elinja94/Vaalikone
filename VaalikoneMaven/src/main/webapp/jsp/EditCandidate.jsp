@@ -27,6 +27,7 @@
 			<h2>Ehdokkaan tiedot:</h2>
 			<form action="/admin/muokkaaEhdokasVahvistus" method="GET">
 			<input type="hidden" name="id" value="${requestScope.candidate.id}" readonly><br> 
+			
 		    	Sukunimi:<br> <input type="text" name="sukunimi" value="${requestScope.candidate.sukunimi}"><br>
 		    	Etunimi:<br> <input type="text" name="etunimi" value="${requestScope.candidate.etunimi}"><br>
 		    	Puolue:<br> <input type="text" name="puolue" value="${requestScope.candidate.puolue}"><br>

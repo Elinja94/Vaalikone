@@ -14,26 +14,39 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-	    <title>Vaalikone kysymykset</title>
+		
+	    <title>Vaalikone Ehdokkaat</title>
 	</head>
 
   <body>
+  		<header>
+			<a href="http://localhost:8080/Admin" class="links"><img class="logo" src="/images/logo.png" alt="Vaalikone logo"></a>
+			<a href="/kysymykset" class="links">Lista kysymyksistä</a>
+			<a href="/ehdokkaat" class="links">Lista ehdokkaista</a>
+			<a href="/Logout" class="logout">Kirjaudu ulos</a>
+		</header>
     <%
-    List<Candidate> candidateslist=(List<Candidate>)request.getAttribute("candidate");
+    List<Candidate> candidatelist=(List<Candidate>)request.getAttribute("candidate");
 	%>
 		<div class="content">
-			<h2>Candidates</h2>
-			<form action=/candidates method="POST">
+		
+			<h2>Ehdokkaat</h2>
 			
-			      
-			    <c:forEach var="candidate" items="${requestScope.candidatesList}" >
-					<li>${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.puolue} ${candidate.kotipaikkakunta} ${candidate.ika} ${candidate.miksi_eduskuntaan} ${candidate.mita_asioita_haluat_edistaa} ${candidate.ammatti} <a href='/poistaEhdokas?id=${candidate.id}' onclick='return confirm("Haluatko varmasti poistaa kysymyksen: ${candidate.sukunimi} ${candidate.etunimi}?");'>Poista</a> <a href='/muokkaaEhdokas?id=${candidate.id}'>Muokkaa</a> <a href='/ehdokkaankysymykset?candidate=${candidate.id}'>Muokkaa vastauksia</a></li><br>
+		
+			
+				<c:forEach var="candidate" items="${requestScope.candidatesList}" >
+				 <h3>${candidate.id} </h3>
+				 <h3>Ehdokkaan nimi: ${candidate.sukunimi} ${candidate.etunimi} </h3> 
+				 <h3>Puolue: ${candidate.puolue} </h3> 
+				 <h3><a href='/candidateInfo?id=${candidate.id}'>Tutustu ehdokkaaseen</a></h3> 
+					
 				</c:forEach>
-				
 		        <div>
-	          	<button type="submit" class="button">Lähetä vastaukset</button>
+		       
+		       
+	          	
 		      	</div>	
-		    </form>
+		
 		   </div>
   </body>
 </html>
