@@ -2,6 +2,9 @@
     
 <%@ page import="java.util.ArrayList" %>   
 <%@ page import="data.Candidate" %>   
+<%@ page import="data.Question" %>   
+<%@ page import="data.Vastaukset" %>  
+
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
@@ -14,8 +17,8 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-		<title>Vaalikone - Ehdokkaat</title>
-
+		
+		<title>EhdokasInfo</title>
 	</head>
 	<body>
 		<header>
@@ -24,16 +27,35 @@
 			<a href="/ehdokkaat" class="links">Lista ehdokkaista</a>
 			<a href="/Logout" class="logout">Kirjaudu ulos</a>
 		</header>
+		
 		<div class="content">
-			<h2>Kaikki ehdokkaat</h2>
+		
+		<input type="hidden" name="id" value="${requestScope.candidate.id}" readonly><br> 
+		
+			<h2>Ehdokkaan tiedot:</h2>
 			
-			<a href="/lisaaEhdokas">Lisää ehdokas</a>
+			<h3>${candidate.id} </h3>
+			Sukunimi:<br> <input name="sukunimi" value="${requestScope.candidate.sukunimi}"><br>
+			<h3>Ehdokkaan nimi: value =  ${candidate.etunimi} </h3> <input> value ="${requestScope.candidate.sukunimi}" 
+			<h3>Puolue: ${candidate.puolue} </h3> 
+			<h3>Kotipaikkakunta: ${candidate.kotipaikkakunta}</h3>
+			<h3>Ikä: ${candidate.ika}</h3>
+			<h3>Miksi eduskuntaan: ${candidate.miksi_eduskuntaan}</h3>
+			<h3>Mitä asioita haluat edistää: ${candidate.mita_asioita_haluat_edistaa}</h3>
+			<h3>Ammatti: ${candidate.ammatti}</h3>
 			
-			<ul>
-				<c:forEach var="candidate" items="${requestScope.candidatesList}" >
-					<li>${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.puolue} ${candidate.kotipaikkakunta} ${candidate.ika} ${candidate.miksi_eduskuntaan} ${candidate.mita_asioita_haluat_edistaa} ${candidate.ammatti} <a href='/poistaEhdokas?id=${candidate.id}' onclick='return confirm("Haluatko varmasti poistaa kysymyksen: ${candidate.sukunimi} ${candidate.etunimi}?");'>Poista</a> <a href='/muokkaaEhdokas?id=${candidate.id}'>Muokkaa</a> <a href='/ehdokkaankysymykset?candidate=${candidate.id}'>Muokkaa vastauksia</a></li><br>
+
+	<h2>Ehdokkaan vastaukset:</h2>
+	
+				<ul>
+				<c:forEach var="question" items="${requestScope.questionsList}" >
+				
+				
+					<li>${question.id}: ${question.question} ${answer.answer} </li><br>
 				</c:forEach>
 			</ul>
+
+		  
 		</div>
 	</body>
-</html>
+	</html>
