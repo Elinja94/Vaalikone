@@ -48,7 +48,7 @@ public class Candidates extends HttpServlet {
 	    if (session != null && session.getAttribute("uname") != null) {
 			ArrayList<Candidate> listOfCandidates = null;
 			if (Dao.getConnection() == true) {
-				listOfCandidates = Dao.listOfCandidates();
+				listOfCandidates = Dao.listOfCandidatesByParty();
 				
 			}
 			

@@ -34,12 +34,11 @@
 			
 		
 			
-				<c:forEach var="candidate" items="${requestScope.candidatesList}" >
+				 <c:forEach var="candidate" items="${requestScope.candidatesList}" >
+				 <h3>Puolue: </h3> <h4> ${candidate.puolue} </h4>
+				 <h3>Ehdokkaan nimi: </h3> <h4> ${candidate.sukunimi} ${candidate.etunimi}  </h4>
 				 <h3>${candidate.id} </h3>
-				 <h3>Ehdokkaan nimi: ${candidate.sukunimi} ${candidate.etunimi} </h3> 
-				 <h3>Puolue: ${candidate.puolue} </h3> 
-				 <h3><a href='/candidateInfo?id=${candidate.id}'>Tutustu ehdokkaaseen</a></h3> 
-					
+				 <h4><a href='/candidateInfo?id=${candidate.id}'>Tutustu ehdokkaaseen</a></h4> 
 				</c:forEach>
 		        <div>
 		       

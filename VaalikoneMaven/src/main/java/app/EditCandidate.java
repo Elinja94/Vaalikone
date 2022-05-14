@@ -19,7 +19,7 @@ import data.Question;
 
 @WebServlet(
 		name = "EditCandidate",
-		urlPatterns = {"/muokkaaEhdokasVahvistus"}
+		urlPatterns = {"/admin/muokkaaEhdokasVahvistus"}
 		)
 
 public class EditCandidate extends HttpServlet {
@@ -43,10 +43,10 @@ public class EditCandidate extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	String sukunimi = request.getParameter("sukunimi");
 	    	String etunimi = request.getParameter("etunimi");
@@ -64,7 +64,7 @@ public class EditCandidate extends HttpServlet {
 	    		list = Dao.updateCandidate(c);
 	    		out.println("<script type='text/javascript'>");
 		    	out.println("alert('Ehdokas muokattu');");
-		    	out.println("location='/ehdokkaat';");
+		    	out.println("location='/admin/ehdokkaat';");
 		    	out.println("</script>");
 	    	}
 	    	
@@ -72,16 +72,16 @@ public class EditCandidate extends HttpServlet {
 	    	else {
 	    		out.println("<script type='text/javascript'>");
 		    	out.println("alert('Ehdokasta ei muokattu');");
-		    	out.println("location='/ehdokkaat';");
+		    	out.println("location='/admin/ehdokkaat';");
 		    	out.println("</script>");
 	    	}
 	    	
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 	    
 	}
 
