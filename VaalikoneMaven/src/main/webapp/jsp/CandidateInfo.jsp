@@ -46,28 +46,24 @@
 			
 
 	<h2>Ehdokkaan vastaukset:</h2>
-	
-			
-				<c:forEach var="question" items="${requestScope.questionsList}" >
-			<%
-			List<Vastaukset> candidateAnswers=(List<Vastaukset>)request.getAttribute("candidateAnswers");
-			Vastaukset answer = candidateAnswers.stream()
-			.filter(a -> a.getQuestionId() == ${question.id})
-			.findAny()
-			.orElse(null); 
-			%>
-
-		
-			
-			
-					${question.id}: ${question.question} answer.getAnswer()<br>
-					
-
-				</c:forEach>
+				<%
+				List<Question> questionsList=(List<Question>)request.getAttribute("questionsList");
+				List<Vastaukset> candidateAnswers=(List<Vastaukset>)request.getAttribute("candidateAnswers");
 				
+				for (Question question : questionsList) {
+					String candidateAnswer = null;
+				    for (Vastaukset a : candidateAnswers) {
+				        if (a.getQuestionId() == question.getId()) {
+				            candidateAnswer = a.getAnswer();
+				        }
+				    }
+				%>
+					<%=question.getId()%>: <%=question.getQuestion()%><br>
+					<%=candidateAnswer%><br>
 
-
-		  
+				<%
+				}
+				%>	  
 		</div>
 	</body>
 	</html>
