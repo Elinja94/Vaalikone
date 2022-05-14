@@ -15,7 +15,7 @@ import data.Candidate;
 
 @WebServlet(
 	    name = "EditCandidateForm",
-	    urlPatterns = {"/muokkaaEhdokas"}
+	    urlPatterns = {"/admin/muokkaaEhdokas"}
 	)
 public class EditCandidateForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,10 +29,10 @@ public class EditCandidateForm extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	Candidate c = null;
 	    	
@@ -48,16 +48,16 @@ public class EditCandidateForm extends HttpServlet {
 	    	
 	    	// If there is no id
 	    	else {
-	    		response.sendRedirect("/ehdokkaat");
+	    		response.sendRedirect("/admin/ehdokkaat");
 	    		
 	    	}
 	    	
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 		
 	}
 

@@ -16,7 +16,7 @@ import dao.Dao;
 
 @WebServlet(
 		name = "AddCandidate",
-		urlPatterns = {"/lisaaEhdokasVahvistus"}
+		urlPatterns = {"admin/lisaaEhdokasVahvistus"}
 		)
 
 public class AddCandidate extends HttpServlet {
@@ -40,10 +40,10 @@ public class AddCandidate extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	String sukunimi = request.getParameter("sukunimi");
 	    	String etunimi = request.getParameter("etunimi");
 	    	String puolue = request.getParameter("puolue");
@@ -56,25 +56,25 @@ public class AddCandidate extends HttpServlet {
 	    	// Checking if where able to add candidate
 	    	if (Dao.addCandidate(sukunimi, etunimi, puolue, kotipaikkakunta, ika, miksi_eduskuntaan, mita_asioita_haluat_edistaa, ammatti) != null) {
 		    	out.println("<script type='text/javascript'>");
-		    	out.println("alert('Ehdokas lis‰tty');");
-		    	out.println("location='/ehdokkaat';");
+		    	out.println("alert('Ehdokas lis√§tty');");
+		    	out.println("location='/admin/ehdokkaat';");
 		    	out.println("</script>");
 	    	}
 	    	
 	    	// If not able to add candidate (just in case)
 	    	else {
 		    	out.println("<script type='text/javascript'>");
-		    	out.println("alert('Ehdokasta ei lis‰tty');");
-		    	out.println("location='/lisaaEhdokas';");
+		    	out.println("alert('Ehdokasta ei lis√§tty');");
+		    	out.println("location='/admin/lisaaEhdokas';");
 		    	out.println("</script>");
 	    	}
 	    	
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 	    
 	}
 

@@ -16,7 +16,7 @@ import dao.Dao;
 
 @WebServlet(
 	    name = "AddQuestion",
-	    urlPatterns = {"/lisaaKysymysVahvistus"}
+	    urlPatterns = {"/admin/lisaaKysymysVahvistus"}
 	)
 public class AddQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,18 +32,18 @@ public class AddQuestion extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	String question = request.getParameter("question");
 	    	
 	    	// Checking if where able to add question
 	    	if (!question.isEmpty()) {
 	    		Dao.addQuestion(question);
 		    	out.println("<script type='text/javascript'>");
-		    	out.println("alert('Kysymys lis‰tty');");
-		    	out.println("location='/kysymykset';");
+		    	out.println("alert('Kysymys lis√§tty');");
+		    	out.println("location='/admin/kysymykset';");
 		    	out.println("</script>");
 	    		
 	    	}
@@ -51,18 +51,18 @@ public class AddQuestion extends HttpServlet {
 	    	// If not able to add question (just in case)
 	    	else {
 	    		out.println("<script type='text/javascript'>");
-		    	out.println("alert('Kysymyst‰ ei lis‰tty');");
-		    	out.println("location='/lisaaKysymys';");
+		    	out.println("alert('Kysymyst√§ ei lis√§tty');");
+		    	out.println("location='/admin/lisaaKysymys';");
 		    	out.println("</script>");
 		    	
 	    	}
 	    	
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 	    
 	}
 

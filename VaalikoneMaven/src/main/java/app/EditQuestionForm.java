@@ -16,7 +16,7 @@ import data.Question;
 
 @WebServlet(
 	    name = "EditQuestionForm",
-	    urlPatterns = {"/muokkaaKysymys"}
+	    urlPatterns = {"/admin/muokkaaKysymys"}
 	)
 public class EditQuestionForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,10 +29,10 @@ public class EditQuestionForm extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
 	    	Question q = null;
 	    	
@@ -52,12 +52,12 @@ public class EditQuestionForm extends HttpServlet {
 	    		
 	    	}
 	    	
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
 		
 	}
 
