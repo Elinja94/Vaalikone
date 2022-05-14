@@ -21,21 +21,27 @@
     <%
     List<Kysymykset> questionlist=(List<Kysymykset>)request.getAttribute("question");
 	%>
-		<div class="content">
-			<h2>Kysymykset</h2>
-			<form action=/vastaakysymyksiin method="POST">
-				<c:forEach var="question" items="${requestScope.questionlist }">
-					<h4><c:out value = "${question.getId()}"/>. <c:out value = "${question.getQuestion()}"/></h4>
-					<input type="radio" name=<c:out value = "${question.getId()}"/> value="1">Vahvasti eri mieltä</input>
-					<input type="radio" name=<c:out value = "${question.getId()}"/> value="2">Eri mieltä</input>
-					<input type="radio" name=<c:out value = "${question.getId()}"/> value="3">Neutraali</input>
-					<input type="radio" name=<c:out value = "${question.getId()}"/> value="4">Samaa mieltä</input>
-					<input type="radio" name=<c:out value = "${question.getId()}"/> value="5">Vahvasti samaa mieltä</input>
-			      </c:forEach>
-		        <div>
-	          	<button type="submit" class="button">Lähetä vastaukset</button>
-		      	</div>	
-		    </form>
-		   </div>
+	<header>
+	  	<a href="http://localhost:8080/" class="links"><img class="logo" src="http://localhost:8080/images/logo.png" alt="Vaalikone logo"></a>
+		<a href="/vastaakysymyksiin" class="links">Vastaa kysymyksiin</a>
+		<a href="/candidates" class="links">Ehdokkaat</a>
+		<a href="http://localhost:8080/admin" class="logout">Kirjaudu sisään</a>
+	</header>
+	<div class="content">
+		<h2>Kysymykset</h2>
+		<form action=/vastaakysymyksiin method="POST">
+			<c:forEach var="question" items="${requestScope.questionlist }">
+				<h4><c:out value = "${question.getId()}"/>. <c:out value = "${question.getQuestion()}"/></h4>
+				<input type="radio" name=<c:out value = "${question.getId()}"/> value="1">Vahvasti eri mieltä</input>
+				<input type="radio" name=<c:out value = "${question.getId()}"/> value="2">Eri mieltä</input>
+				<input type="radio" name=<c:out value = "${question.getId()}"/> value="3">Neutraali</input>
+				<input type="radio" name=<c:out value = "${question.getId()}"/> value="4">Samaa mieltä</input>
+				<input type="radio" name=<c:out value = "${question.getId()}"/> value="5">Vahvasti samaa mieltä</input>
+		      </c:forEach>
+	        <div>
+          	<button type="submit" class="button">Lähetä vastaukset</button>
+	      	</div>	
+	    </form>
+	   </div>
   </body>
 </html>
