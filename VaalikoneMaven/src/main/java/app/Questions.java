@@ -18,7 +18,7 @@ import data.Kysymykset;
 /**
  * Servlet implementation class Questions
  */
-@WebServlet("/questions")
+@WebServlet("/vastaakysymyksiin")
 public class Questions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
