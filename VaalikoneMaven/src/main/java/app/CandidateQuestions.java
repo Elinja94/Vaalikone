@@ -19,7 +19,7 @@ import data.Question;
 /**
  * Servlet implementation class CandidateQuestions
  */
-@WebServlet("/ehdokkaankysymykset")
+@WebServlet("/admin/ehdokkaankysymykset")
 public class CandidateQuestions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao = null;
@@ -51,16 +51,16 @@ public class CandidateQuestions extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private boolean isAuthenticated(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		HttpSession session=request.getSession(false);
-		
-		if (session != null && session.getAttribute("uname") != null) {
-			return true;
-		}
-		
-		response.sendRedirect("http://localhost:8080/");
-		return false;
-    }
+//    private boolean isAuthenticated(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		//HttpSession session=request.getSession(false);
+//		
+//		if (session != null && session.getAttribute("uname") != null) {
+//			return true;
+//		}
+//		
+//		response.sendRedirect("http://localhost:8080/");
+//		return false;
+//    }
     
     void getQueryString(HttpServletRequest request) {
 		String queryString = request.getQueryString();
@@ -126,14 +126,14 @@ public class CandidateQuestions extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
-		if (isAuthenticated(request, response)) {
+		//if (isAuthenticated(request, response)) {
 			getQueryString(request);
 			boolean inputValid = checkCandidateId(response) && checkQuestionList(response);	
 			
 			if (inputValid) {
 				if (Integer.parseInt(question) > questionList.size()+1) {
 					response.getWriter().println("alert('Vastaukset tallennettu');");
-					response.sendRedirect("http://localhost:8080/ehdokkaat");
+					response.sendRedirect("http://localhost:8080/admin/ehdokkaat");
 				}
 				
 				else {
@@ -163,7 +163,7 @@ public class CandidateQuestions extends HttpServlet {
 					}
 				}
 			}
-		}
+		//}
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class CandidateQuestions extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
-		if (isAuthenticated(request, response)) {
+		//if (isAuthenticated(request, response)) {
 			String questionId = request.getParameter("questionId");
 			String answer = request.getParameter("answer");
 			String method = request.getParameter("method");
@@ -190,13 +190,13 @@ public class CandidateQuestions extends HttpServlet {
 			}
 				
 			doGet(request,response);
-		}
+		//}
 	}
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
-		if (isAuthenticated(request, response)) {
+		//if (isAuthenticated(request, response)) {
 			String questionId = request.getParameter("questionId");
 			String answer = request.getParameter("answer");
 			boolean inputValid = checkCandidateId(response) && checkQuestionId(questionId, response) && answer != null;
@@ -215,5 +215,5 @@ public class CandidateQuestions extends HttpServlet {
 			
 			doGet(request,response);
 		}
-	}
+	//}
 }

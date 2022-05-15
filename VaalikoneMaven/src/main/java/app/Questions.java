@@ -2,8 +2,13 @@ package app;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -50,11 +55,35 @@ public class Questions extends HttpServlet {
 		rd.forward(request, response);	
 
 	}
+	
+    HashMap<Integer, Integer> sortByValue(HashMap<Integer, Integer> hm)
+    {
+        // Create a list from elements of HashMap
+        List<HashMap.Entry<Integer, Integer> > list =
+               new LinkedList<HashMap.Entry<Integer, Integer> >(hm.entrySet());
+ 
+        // Sort the list
+        Collections.sort(list, new Comparator<HashMap.Entry<Integer, Integer> >() {
+            public int compare(HashMap.Entry<Integer, Integer> o1,
+                               HashMap.Entry<Integer, Integer> o2)
+            {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+         
+        // put data from sorted list to hashmap
+        HashMap<Integer, Integer> temp = new LinkedHashMap<Integer, Integer>();
+        for (HashMap.Entry<Integer, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
 		EntityManager em=emf.createEntityManager();
@@ -93,6 +122,7 @@ public class Questions extends HttpServlet {
 				}
 		}
 		
+		sameAnswers = sortByValue(sameAnswers);
 		request.setAttribute("userAnswers", userAnswers);
 		request.setAttribute("sameAnswers", sameAnswers);
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/CompareAnswers.jsp");		

@@ -2,25 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fi">
   <head>
     <meta http-equiv="content-type" content="application/xhtml+xml;" charset="UTF-8" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://localhost:8080/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Marck+Script&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
-    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="http://localhost:8080/images/favicon.png">
     <title>Vaalikone</title>
   </head>
 
   <body>
-    <a href="http://localhost:8080/"><img class="logo" src="/images/logo.png" alt="Vaalikone logo"></a>
-    <div class="login">
-    <h1>Tervetuloa käyttämään vaalikonetta</h1>
-    	  	<a href="/vastaakysymyksiin">Vastaa kysymyksiin</a>
-	    <h2>Kirjaudu sisään</h2>
-	    <form action="/login" method="POST">
-	    	<p>Käyttäjätunnus:</p><input type="text" size="20" name="username">
-	    	<p>Salasana:</p><input type="password" size="20" name ="password"><br>
-	    	<input type="submit" value="Kirjaudu" class="button">
-	    </form>
+  	<header>
+	  	<a href="http://localhost:8080/" class="links"><img class="logo" src="http://localhost:8080/images/logo.png" alt="Vaalikone logo"></a>
+		<a href="/vastaakysymyksiin" class="links">Vastaa kysymyksiin</a>
+		<a href="/candidates" class="links">Ehdokkaat</a>
+		<a href="http://localhost:8080/admin" class="logout">Kirjaudu sisään</a>
+	</header>
+    <div class="content">
+	    <h1>Tervetuloa käyttämään vaalikonetta</h1><br>
+	    <a href="/vastaakysymyksiin"><span class="answer"><p>Vastaa</p><p class="dotText">kysymyksiin</p></span></a><br>
+	    <a href="/candidates"><span class="view"><p>Katsele</p><p class="dotText">ehdokkaita</p></span></a>
     </div>
   </body>
 </html>
