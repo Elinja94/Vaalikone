@@ -21,23 +21,23 @@ public class Logout extends HttpServlet {
 		
 		// Information needed to check session status
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
+		//HttpSession session=request.getSession(false);
 				
 		// Checking is there a current session
-	    if (session != null && session.getAttribute("uname") != null) {
+	    //if (session != null && session.getAttribute("uname") != null) {
 		
 			// Simple way to end a session but not the best
 			response.setContentType("text/html");
-			session.removeAttribute("uname");
-			session.invalidate();
+//			session.removeAttribute("uname");
+//			session.invalidate();
 			response.sendRedirect("http://localhost:8080/");
-	    }
+	    //}
 	    
 	    // If there is no session
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
-		
+//	    else {
+//	    	response.sendRedirect("http://localhost:8080/");
+//	    }
+//		
 	}
 
 }
