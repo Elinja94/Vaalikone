@@ -53,13 +53,18 @@
 					String candidateAnswer = null;
 				    for (Vastaukset a : candidateAnswers) {
 				        if (a.getQuestionId() == question.getId()) {
-				            candidateAnswer = a.getAnswer();
+				            Integer answer = Integer.parseInt(a.getAnswer());
+				            if (answer == 1) candidateAnswer = "Vahvasti eri mieltä";
+				            if (answer == 2) candidateAnswer = "Eri mieltä";
+				            if (answer == 3) candidateAnswer = "Neutraali";
+				            if (answer == 4) candidateAnswer = "Samaa mieltä";
+				            if (answer == 5) candidateAnswer = "Vahvasti samaa mieltä";
 				        }
 				    }
 				%>
 					<%=question.getId()%>: <%=question.getQuestion()%><br>
 					<%=candidateAnswer%><br>
-
+					<br>
 				<%
 				}
 				%>	  
