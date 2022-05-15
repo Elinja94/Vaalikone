@@ -43,28 +43,21 @@ public class Candidates extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html");
-		HttpSession session=request.getSession(false);
-				
-	    if (session != null && session.getAttribute("uname") != null) {
-			ArrayList<Candidate> listOfCandidates = null;
-			if (Dao.getConnection() == true) {
-				listOfCandidates = Dao.listOfCandidatesByParty();
-				
-			}
+
+		ArrayList<Candidate> listOfCandidates = null;
+		if (Dao.getConnection() == true) {
+			listOfCandidates = Dao.listOfCandidatesByParty();
 			
-			else {
-				System.out.println("Not connected to the database");
-				
-			}
+		}
+		
+		else {
+			System.out.println("Not connected to the database");
 			
-			request.setAttribute("candidatesList", listOfCandidates);
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/Candidates.jsp");
-			rd.forward(request, response);
-	    }
-	    
-	    else {
-	    	response.sendRedirect("http://localhost:8080/");
-	    }
+		}
+		
+		request.setAttribute("candidatesList", listOfCandidates);
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/Candidates.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
