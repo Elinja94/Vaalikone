@@ -3,7 +3,8 @@
 <%@ page import="java.util.ArrayList" %>   
 <%@ page import="data.Candidate" %>   
 <%@ page import="data.Question" %>   
-<%@ page import="data.Vastaukset" %>  
+<%@ page import="data.Vastaukset" %>
+<%@ page import="java.util.List" %>   
 
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
@@ -34,28 +35,35 @@
 		
 			<h2>Ehdokkaan tiedot:</h2>
 			
-			<h3>${candidate.id} </h3>
-			Sukunimi:<br> <input name="sukunimi" value="${requestScope.candidate.sukunimi}"><br>
-			<h3>Ehdokkaan nimi: value =  ${candidate.etunimi} </h3> <input> value ="${requestScope.candidate.sukunimi}" 
-			<h3>Puolue: ${candidate.puolue} </h3> 
-			<h3>Kotipaikkakunta: ${candidate.kotipaikkakunta}</h3>
-			<h3>Ikä: ${candidate.ika}</h3>
-			<h3>Miksi eduskuntaan: ${candidate.miksi_eduskuntaan}</h3>
-			<h3>Mitä asioita haluat edistää: ${candidate.mita_asioita_haluat_edistaa}</h3>
-			<h3>Ammatti: ${candidate.ammatti}</h3>
+			<h3>${candidate.id}. </h3>
+			<h3>Ehdokkaan nimi:</h3> <h4> ${candidate.etunimi} ${candidate.sukunimi} </h4>
+			<h3>Puolue: </h3> <h4>${candidate.puolue} </h4>
+			<h3>Kotipaikkakunta: </h3> <h4> ${candidate.kotipaikkakunta} </h4>
+			<h3>Ikä: </h3> <h4>${candidate.ika} </h4>
+			<h3>Miksi eduskuntaan: </h3> <h4>${candidate.miksi_eduskuntaan} </h4>
+			<h3>Mitä asioita haluat edistää: </h3> <h4>${candidate.mita_asioita_haluat_edistaa} </h4>
+			<h3>Ammatti: </h3> <h4>${candidate.ammatti} </h4>
 			
 
 	<h2>Ehdokkaan vastaukset:</h2>
-	
-				<ul>
-				<c:forEach var="question" items="${requestScope.questionsList}" >
+				<%
+				List<Question> questionsList=(List<Question>)request.getAttribute("questionsList");
+				List<Vastaukset> candidateAnswers=(List<Vastaukset>)request.getAttribute("candidateAnswers");
 				
-				
-					<li>${question.id}: ${question.question} ${answer.answer} </li><br>
-				</c:forEach>
-			</ul>
+				for (Question question : questionsList) {
+					String candidateAnswer = null;
+				    for (Vastaukset a : candidateAnswers) {
+				        if (a.getQuestionId() == question.getId()) {
+				            candidateAnswer = a.getAnswer();
+				        }
+				    }
+				%>
+					<%=question.getId()%>: <%=question.getQuestion()%><br>
+					<%=candidateAnswer%><br>
 
-		  
+				<%
+				}
+				%>	  
 		</div>
 	</body>
 	</html>

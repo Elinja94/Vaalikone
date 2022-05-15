@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,6 +60,8 @@ public class CandidateInfo extends HttpServlet {
     		listOfQuestions = Dao.listOfQuestions();
     		
     		
+    		
+    		
     		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
     		EntityManager em=emf.createEntityManager();
     		
@@ -67,7 +70,12 @@ public class CandidateInfo extends HttpServlet {
     		List<Vastaukset> candidateAnswers=em.createQuery("select v from Vastaukset v").getResultList();
     		em.getTransaction().commit();
     		
-    		request.setAttribute("candidateAnswers", candidateAnswers);
+    		List<Vastaukset> filteredAnswers = candidateAnswers
+    				.stream()
+    				.filter(a -> a.getCandidateId() == Integer.parseInt(id))
+    				.collect(Collectors.toList());
+    		
+    		request.setAttribute("candidateAnswers", filteredAnswers);
     		request.setAttribute("candidate", c);
     		request.setAttribute("questionsList", listOfQuestions);
     		RequestDispatcher rd=request.getRequestDispatcher("/jsp/CandidateInfo.jsp");

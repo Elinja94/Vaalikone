@@ -71,7 +71,7 @@ public class Dao {
 		
 		url = "jdbc:mysql://localhost:3306/vaalikone?useSSL=false&allowPublicKeyRetrieval=false";
 		user= "root";
-		pass= "Palvelin";
+		pass= "root";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -283,6 +283,49 @@ public class Dao {
 			try {
 				Statement stmt = conn.createStatement();
 				ResultSet result = stmt.executeQuery("SELECT * FROM ehdokkaat");
+				
+				// Putting data to the arraylist
+				while (result.next()) {
+					Candidate cand = new Candidate();
+					cand.setId(result.getInt(1));
+					cand.setSukunimi(result.getString(2));
+					cand.setEtunimi(result.getString(3));
+					cand.setPuolue(result.getString(4));
+					cand.setKotipaikkakunta(result.getString(5));
+					cand.setIka(result.getInt(6));
+					cand.setMiksi_eduskuntaan(result.getString(7));
+					cand.setMita_asioita_haluat_edistaa(result.getString(8));
+					cand.setAmmatti(result.getString(9));
+					candidatesList.add(cand);
+					
+				}
+				result.next();
+				return candidatesList;
+				
+			} 
+			
+			// Just in case if something goes wrong
+			catch (SQLException e) {
+				return null;
+				
+			}
+		}
+		
+		return null;
+		
+	}
+	
+	// Making an arraylist of candidates -Kaisa
+	public static ArrayList<Candidate> listOfCandidatesByParty() {
+		ArrayList<Candidate> candidatesList = new ArrayList<>();
+		
+		// Connection to the database
+		if (getConnection() == true) {
+			
+			// Selecting everything from the ehdokkaat table 
+			try {
+				Statement stmt = conn.createStatement();
+				ResultSet result = stmt.executeQuery("SELECT * FROM ehdokkaat ORDER BY Puolue");
 				
 				// Putting data to the arraylist
 				while (result.next()) {
