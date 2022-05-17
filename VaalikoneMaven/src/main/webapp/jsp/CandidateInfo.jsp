@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@ page import="java.util.ArrayList" %>   
-<%@ page import="data.Candidate" %>   
+<%@ page import="data.Ehdokkaat" %>   
 <%@ page import="data.Question" %>   
 <%@ page import="data.Vastaukset" %>
 <%@ page import="java.util.List" %>   
@@ -30,16 +30,16 @@
 		
 	<div class="content"><br>
 		<a href="/candidates" style="text-decoration: none; color: #171616;">&#60; Takaisin ehdokas listaan</a>
-	<input type="hidden" name="id" value="${requestScope.candidate.id}" readonly>
+	<input type="hidden" name="id" value="${requestScope.ehdokas.getId()}" readonly>
 		<h2>Ehdokkaan tiedot:</h2>
-		<h3 style="-webkit-text-stroke: 0px;">N:o ${candidate.id}<br>${candidate.etunimi} ${candidate.sukunimi} ${candidate.ika}</h3>
-		<p style="font-size: 25px; -webkit-text-stroke: 0.5px;">${candidate.puolue}</p>
-		<p>${candidate.kotipaikkakunta}</p>
-		<p><b>Ammatti:</b> ${candidate.ammatti}</p>
+		<h3 style="-webkit-text-stroke: 0px;">N:o ${ehdokas.getId()}<br>${ehdokas.getEtunimi()} ${ehdokas.getSukunimi()} ${ehdokas.getIka()}</h3>
+		<p style="font-size: 25px; -webkit-text-stroke: 0.5px;">${ehdokas.getPuolue()}</p>
+		<p>${ehdokas.getKotipaikkakunta()}</p>
+		<p><b>Ammatti:</b> ${ehdokas.getAmmatti()}</p>
 		<h3 style="-webkit-text-stroke: 0px;">Miksi eduskuntaan:</h3>
-		<p>${candidate.miksi_eduskuntaan}</p>
+		<p>${ehdokas.getMiksi_eduskuntaan()}</p>
 		<h3 style="-webkit-text-stroke: 0px;">Mitä asioita haluat edistää: </h3>
-		<p>${candidate.mita_asioita_haluat_edistaa}</p>
+		<p>${ehdokas.getMita_asioita_haluat_edistaa()}</p>
 
 		<h2>Ehdokkaan vastaukset:</h2>
 				<%
