@@ -155,7 +155,8 @@ li {
 
 /* Style for dots */
 .answer {
-	margin-left: 200px;
+	margin-left: 30%;
+	margin-right: 60%;
 	height: 300px;
 	width: 300px;
 	background-color: #e8681a;
@@ -169,8 +170,8 @@ li {
 }
 
 .view {
-	margin-left: 700px;
-	margin-top: -200px;
+	margin-left: 60%;
+	margin-right: 30%;
 	height: 300px;
 	width: 300px;
 	background-color: #e8681a;

@@ -3,7 +3,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
  
 <%@ page import="java.util.List" %>   
-<%@ page import="data.Candidate" %>   
+<%@ page import="data.Ehdokkaat" %>   
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fi">
@@ -25,15 +25,15 @@
 			<a href="http://localhost:8080/admin" class="logout">Kirjaudu sisään</a>
 		</header>
     <%
-    List<Candidate> candidatelist=(List<Candidate>)request.getAttribute("candidate");
+    List<Ehdokkaat> candidatelist=(List<Ehdokkaat>)request.getAttribute("candidate");
 	%>
 		<div class="content">
-			 <c:forEach var="candidate" items="${requestScope.candidatesList}" >
-			 <a href='/candidateInfo?id=${candidate.id}' style="text-decoration: none; color: #262742;">
+			 <c:forEach var="candidate" items="${requestScope.candidatelist}" >
+			 <a href='/ehdokas?id=${candidate.getId()}' style="text-decoration: none; color: #262742;">
 			 	<div class="candidateBox">
-			 		<span class="candidateNumber">${candidate.id}</span>
-					<h3> ${candidate.sukunimi} ${candidate.etunimi}</h3>
-					<h3 style="-webkit-text-stroke: 0px;">${candidate.puolue}</h3>
+			 		<span class="candidateNumber">${candidate.getId()}</span>
+					<h3> ${candidate.getSukunimi()} ${candidate.getEtunimi()}</h3>
+					<h3 style="-webkit-text-stroke: 0px;">${candidate.getPuolue()}</h3>
 				</div> 
 			</a>
 			</c:forEach>
