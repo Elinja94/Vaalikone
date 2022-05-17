@@ -28,23 +28,15 @@
     List<Candidate> candidatelist=(List<Candidate>)request.getAttribute("candidate");
 	%>
 		<div class="content">
-		
-			<h2>Ehdokkaat</h2>
-			
-		
-			
-				 <c:forEach var="candidate" items="${requestScope.candidatesList}" >
-				 <h3>Puolue: </h3> <h4> ${candidate.puolue} </h4>
-				 <h3>Ehdokkaan nimi: </h3> <h4> ${candidate.sukunimi} ${candidate.etunimi}  </h4>
-				 <h3>${candidate.id} </h3>
-				 <h4><a href='/candidateInfo?id=${candidate.id}'>Tutustu ehdokkaaseen</a></h4> 
-				</c:forEach>
-		        <div>
-		       
-		       
-	          	
-		      	</div>	
-		
-		   </div>
+			 <c:forEach var="candidate" items="${requestScope.candidatesList}" >
+			 <a href='/candidateInfo?id=${candidate.id}' style="text-decoration: none; color: #262742;">
+			 	<div class="candidateBox">
+			 		<span class="candidateNumber">${candidate.id}</span>
+					<h3> ${candidate.sukunimi} ${candidate.etunimi}</h3>
+					<h3 style="-webkit-text-stroke: 0px;">${candidate.puolue}</h3>
+				</div> 
+			</a>
+			</c:forEach>
+		</div>
   </body>
 </html>
