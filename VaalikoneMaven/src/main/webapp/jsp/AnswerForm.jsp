@@ -41,8 +41,8 @@
 		      	<label style=" color: #de1f8b; -webkit-text-stroke: 0.5px #de1f8b;"><input type="radio" name="answer" value="1">Vahvasti eri mieltä</label>
 	          	<label style="color: #de31b3; -webkit-text-stroke: 0.5px #de31b3;"><input type="radio" name="answer" value="2">Eri mieltä</label>
 	          	<label style="color: #ab2dc2; -webkit-text-stroke: 0.5px #ab2dc2;"><input type="radio" name="answer" value="3">Neutraali</label>
-	          	<label class="radioAnswer" style="color: #7811a8; -webkit-text-stroke: 0.5px #7811a8;"><input type="radio" name="answer" value="4">Samaa mieltä</label>
-	          	<label class="radioAnswer" style="color: #5d1a9c; -webkit-text-stroke: 0.5px #5d1a9c;"><input type="radio" name="answer" value="5">Vahvasti samaa mieltä</label>
+	          	<label style="color: #7811a8; -webkit-text-stroke: 0.5px #7811a8;"><input type="radio" name="answer" value="4">Samaa mieltä</label>
+	          	<label style="color: #5d1a9c; -webkit-text-stroke: 0.5px #5d1a9c;"><input type="radio" name="answer" value="5">Vahvasti samaa mieltä</label>
 		      	</div>
 		        <div>
 	          	<button type="submit" class="button">Seuraava</button>
