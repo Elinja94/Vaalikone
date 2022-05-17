@@ -23,7 +23,8 @@
 			<a href="/admin/ehdokkaat" class="links">Lista ehdokkaista</a>
 			<a href="/Logout" class="logout">Kirjaudu ulos</a>
 		</header>
-		<div class="content">
+		<div class="content"><br>
+			<a href="/admin/kysymykset" style="text-decoration: none; color: #171616;">&#60; Takaisin kysymyksiin</a>
 			<h2>Muokkaa kysymystä</h2>
 			<form action="/admin/muokkaaKysymysVahvistus" method="POST">
 				<input type="hidden" name="id" value="${requestScope.question.id}" readonly> 

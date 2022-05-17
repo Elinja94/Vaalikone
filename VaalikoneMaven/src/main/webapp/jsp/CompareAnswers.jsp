@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-	    <title>Vaalikone kysymykset</title>
+	    <title>Vaalikone - Vertailu</title>
 	</head>
 
   <body>
@@ -30,17 +30,17 @@
 		<a href="/candidates" class="links">Ehdokkaat</a>
 		<a href="http://localhost:8080/admin" class="logout">Kirjaudu sisään</a>
 	</header>
-    <div class="content">
-    <h2>Tulokset</h2>
-    <h3>Samojen vastauksien määrä</h3>
+    <div class="content"><br>
+    <a href="/" style="text-decoration: none; color: #171616;">&#60; Palaa etusivulle</a>
+    <h2>Ehdokkaat jotka vastasivat sinun vastauksia parhaiten:</h2>
         <%
       for (Integer i : sameAnswers.keySet()) {
         String link = "/candidateInfo?id=" + i;
-        out.println("<p>" + "<a href=" + link + ">" + "Kandidaatti " + i +  "<a/>: " + sameAnswers.get(i) + "</p>");
+        out.println("<p>" + "<b><a href=" + link + " style='text-decoration: none; color: #171616;'>" + "Kandidaatti " + i +  "<a/>:</b> " + sameAnswers.get(i) + "</p>");
       }
       %>
-      <br><br>
-      <a href="/">Palaa etusivulle</a>
+      <br>
+      <a href="/vastaakysymyksiin" style="text-decoration: none; color: #171616;">Tee kysely uudestaan</a>
      </div>
   </body>
 </html>

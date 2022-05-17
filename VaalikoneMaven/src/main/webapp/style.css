@@ -28,6 +28,25 @@ h2 {
 	
 }
 
+h3 {
+	font-family: 'Kanit', sans-serif;
+	font-size: 30px;
+	color: #262742;
+	-webkit-text-stroke: 1px #262742;
+	margin-bottom: 10px;
+	
+}
+
+.questionHead {
+	text-align: center;
+	
+}
+
+.candidateInfo {
+	padding-right: 30px;
+	margin-bottom: 0px;
+}
+
 p {
 	margin-top: 10px;
 	margin-bottom: -1px;
@@ -133,6 +152,7 @@ li {
 	
 }
 
+
 /* Style for dots */
 .answer {
 	margin-left: 200px;
@@ -163,9 +183,65 @@ li {
 	
 }
 
+.candidateNumber {
+	margin-top: 25px;
+	margin-bottom: 0px;
+	height: 80px;
+	width: 80px;
+	text-align: center;
+	background-color: #e8681a;
+	border-radius: 50%;
+	display: inline-block;
+	line-height: 80px;
+	font-family: 'Kanit', sans-serif;
+	font-size: 30px;
+	color: #262742;
+	-webkit-text-stroke: 1px #262742;
+	
+}
+
 .dotText {
 	margin: -175px;
 	
 }
 
+/* Style for boxes and their content (not used somewhere else) */
 
+.questionBox {
+	margin-left: 10%;
+	margin-right: 10%;
+	padding-bottom: 35px;
+	background-color: #f2d18d;
+	-webkit-mask: linear-gradient(#add9d8 0 0) 
+					top/100% calc(100% - 40px) no-repeat,
+					radial-gradient(circle farthest-side,#000 98%,#0000) 
+					bottom/calc(1.85*40px) 80px repeat-x;
+	
+}
+
+.radioAnswer {
+	margin-left: 20px;
+	text-align: center;
+}
+
+.candidateBox {
+	min-width: 400px;
+	margin-left: 20%;
+	margin-right: 20%;
+	padding-top: 15px;
+	padding-bottom: 35px;
+	padding-left: 100px;
+	background-color: #f2e3aa;
+	--mask: linear-gradient(#000 0 0) 
+			center/calc(100% - 60px) calc(100% - 60px) no-repeat,
+  			radial-gradient(circle farthest-side,#0000 98%,#000) 0 -30px/55.5px 60px round no-repeat,
+  			radial-gradient(circle farthest-side,#0000 98%,#000) 0 calc(100% + 30px)/55.5px 60px round no-repeat,
+  			radial-gradient(circle farthest-side,#0000 98%,#000) -30px 0/60px 55.5px no-repeat round,
+  			radial-gradient(circle farthest-side,#0000 98%,#000) calc(100% + 30px) 0/60px 55.5px no-repeat round;
+	-webkit-mask: var(--mask);
+	mask: var(--mask);
+	clip-path: polygon(60px 0,calc(100% - 60px) 
+				0,100% 60px,100% calc(100% - 60px),
+				calc(100% - 60px) 100%,60px 100%,0 calc(100% - 60px),0 60px);
+	
+}

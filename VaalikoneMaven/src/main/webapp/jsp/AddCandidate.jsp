@@ -23,7 +23,8 @@
 			<a href="/admin/ehdokkaat" class="links">Lista ehdokkaista</a>
 			<a href="/Logout" class="logout">Kirjaudu ulos</a>
 		</header>
-		<div class="content">
+		<div class="content"><br>
+			<a href="/admin/ehdokkaat" style="text-decoration: none; color: #171616;">&#60; Takaisin ehdokkaisiin</a>
 			<h2>Ehdokkaan tiedot:</h2>
 			<form action="/admin/lisaaEhdokasVahvistus" method="GET">
 		    	Sukunimi:<br> <input type="text" name="sukunimi"><br>

@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-	    <title>Vaalikone kysymykset</title>
+	    <title>Vaalikone - Kysymykset</title>
 	</head>
 
   <body>
@@ -28,18 +28,22 @@
 		<a href="http://localhost:8080/admin" class="logout">Kirjaudu sisään</a>
 	</header>
 	<div class="content">
-		<h2>Kysymykset</h2>
 		<form action=/vastaakysymyksiin method="POST">
 			<c:forEach var="question" items="${requestScope.questionlist }">
-				<h4><c:out value = "${question.getId()}"/>. <c:out value = "${question.getQuestion()}"/></h4>
-				<input type="radio" name=<c:out value = "${question.getId()}"/> value="1">Vahvasti eri mieltä</input>
-				<input type="radio" name=<c:out value = "${question.getId()}"/> value="2">Eri mieltä</input>
-				<input type="radio" name=<c:out value = "${question.getId()}"/> value="3">Neutraali</input>
-				<input type="radio" name=<c:out value = "${question.getId()}"/> value="4">Samaa mieltä</input>
-				<input type="radio" name=<c:out value = "${question.getId()}"/> value="5">Vahvasti samaa mieltä</input>
+				<div class="questionBox">
+					<h3 class="questionHead"><c:out value = "${question.getId()}"/>. <c:out value = "${question.getQuestion()}"/></h3>
+					<label class="radioAnswer" style="margin-left: 10%; color: #de1f8b; -webkit-text-stroke: 0.5px #de1f8b;"><input type="radio" name=<c:out value = "${question.getId()}"/> value="1">Vahvasti eri mieltä</label>
+					<label class="radioAnswer" style="color: #de31b3; -webkit-text-stroke: 0.5px #de31b3;"><input type="radio" name=<c:out value = "${question.getId()}"/> value="2">Eri mieltä</label>
+					<label class="radioAnswer" style="color: #ab2dc2; -webkit-text-stroke: 0.5px #ab2dc2;"><input type="radio" name=<c:out value = "${question.getId()}"/> value="3">Neutraali</label>
+					<label class="radioAnswer" style="color: #7811a8; -webkit-text-stroke: 0.5px #7811a8;"><input type="radio" name=<c:out value = "${question.getId()}"/> value="4">Samaa mieltä</label>
+					<label class="radioAnswer" style="color: #5d1a9c; -webkit-text-stroke: 0.5px #5d1a9c;"><input type="radio" name=<c:out value = "${question.getId()}"/> value="5">Vahvasti samaa mieltä</label>
+		      	</div>
 		      </c:forEach>
 	        <div>
-          	<button type="submit" class="button">Lähetä vastaukset</button>
+	        <br>
+	        <div style="display: grid;">
+          		<button type="submit" class="button" style="margin:auto; height: 50px; font-size: 20px;">Lähetä vastaukset</button>
+          	</div>
 	      	</div>	
 	    </form>
 	   </div>

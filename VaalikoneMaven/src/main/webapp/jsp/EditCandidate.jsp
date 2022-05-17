@@ -23,7 +23,8 @@
 			<a href="/admin/ehdokkaat" class="links">Lista ehdokkaista</a>
 			<a href="/Logout" class="logout">Kirjaudu ulos</a>
 		</header>
-		<div class="content">
+		<div class="content"><br>
+			<a href="/admin/ehdokkaat" style="text-decoration: none; color: #171616;">&#60; Takaisin ehdokkaisiin</a>
 			<h2>Ehdokkaan tiedot:</h2>
 			<form action="/admin/muokkaaEhdokasVahvistus" method="GET">
 			<input type="hidden" name="id" value="${requestScope.candidate.id}" readonly><br> 
