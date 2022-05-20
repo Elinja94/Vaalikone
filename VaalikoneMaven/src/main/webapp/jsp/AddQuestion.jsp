@@ -44,7 +44,8 @@
 			<a href="/admin/ehdokkaat" class="links">Lista ehdokkaista</a>
 			<a href="/Logout" class="logout">Kirjaudu ulos</a>
 		</header>
-    	<div class="content">
+		<div class="content"><br>
+			<a href="/admin/kysymykset" style="text-decoration: none; color: #171616;">&#60; Takaisin kysymyksiin</a>
 			<h2>Kysymyksen tiedot:</h2>
 			<form action="/admin/lisaaKysymysVahvistus" method="POST" onsubmit="return false;">
 		    	Kysymys:<br> <textarea id="question" name="question" rows="6" cols="50"></textarea><br>
