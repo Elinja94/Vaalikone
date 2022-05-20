@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 
+import dao.Dao;
+
 /**
  * Servlet Filter implementation class AuthFilter
  */
@@ -89,18 +91,42 @@ public class AuthFilter implements Filter {
 	 * And... the users might be got from a database
 	 */
 	
-	public void getUser() {
-        // this user does not have any password
-        validUsers.put("nopass:","authorized");
-        //The user poxltii has a password as well as pena
-        validUsers.put("poxltii:poxpass","authorized");
-        validUsers.put("pena:kukkuu","authorized");
+	public void getUser(String auth) {
+		// Getting information from databse
+		if (Dao.getConnection()) {
+			// Checking that there is some information
+			if (auth != null) {
+				// Getting rid of unnecessary info at the start
+				String userpassEncoded = auth.substring(6);
+				// Decoding the information
+		        Base64 base64 = new Base64();
+		        String userpassDecoded = new String(base64.decode(userpassEncoded.getBytes()));
+		        // Getting only username part
+		        String user = userpassDecoded.split("\\:")[0];
+		        // Getting only password part
+		        String pass = userpassDecoded.substring(userpassDecoded.lastIndexOf(":") + 1);
+		        // Crypting password for the check
+		        String cryptedPass = Dao.crypt(pass);
+		        // Checking that username and password can be found in the database
+		        if (Dao.checkLogin(user, cryptedPass) == true) {
+		        	// Puts the user if found in the database to be authorized
+		        	validUsers.put(user + ":" + pass,"authorized");
+		        	
+		        }
+			}
+		}
+		
+//        // this user does not have any password
+//        validUsers.put("nopass:","authorized");
+//        //The user poxltii has a password as well as pena
+//        validUsers.put("poxltii:poxpass","authorized");
+//        validUsers.put("pena:kukkuu","authorized");
         
 	}
 
     protected boolean allowUser(String auth) throws IOException {
     	
-        getUser();//calling the getUser method
+        getUser(auth);//calling the getUser method
         //In the first place the auth parameter is null
         if (auth == null) {
             return false;

@@ -71,7 +71,7 @@ public class Dao {
 		
 		url = "jdbc:mysql://localhost:3306/vaalikone?useSSL=false&allowPublicKeyRetrieval=false";
 		user= "root";
-		pass= "root";
+		pass= "Palvelin";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -260,6 +260,9 @@ public class Dao {
 				PreparedStatement pstmt=conn.prepareStatement("DELETE FROM kysymykset WHERE KYSYMYS_ID=?");
 				pstmt.setString(1, id);
 				pstmt.execute();
+				PreparedStatement pstmt2=conn.prepareStatement("DELETE FROM vastaukset WHERE KYSYMYS_ID=?");
+				pstmt2.setString(1, id);
+				pstmt2.execute();
 				return listOfQuestions();
 			} 
 			
@@ -480,6 +483,9 @@ public class Dao {
 				PreparedStatement pstmt=conn.prepareStatement("DELETE FROM ehdokkaat WHERE EHDOKAS_ID=?");
 				pstmt.setString(1, id);
 				pstmt.execute();
+				PreparedStatement pstmt2=conn.prepareStatement("DELETE FROM vastaukset WHERE EHDOKAS_ID=?");
+				pstmt2.setString(1, id);
+				pstmt2.execute();
 				return listOfCandidates();
 			} 
 			

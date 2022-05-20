@@ -25,10 +25,10 @@
 		</header>
 		<div class="content">
 			<h2>Kaikki ehdokkaat</h2>
-			<a href="/admin/lisaaEhdokas">Lisää ehdokas</a>
+			<a href="/admin/lisaaEhdokas" style="text-decoration: none; color: #171616;">Lisää ehdokas &#62;</a>
 			<ul>
 				<c:forEach var="candidate" items="${requestScope.candidatesList}" >
-					<li>${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.puolue} ${candidate.kotipaikkakunta} ${candidate.ika} ${candidate.miksi_eduskuntaan} ${candidate.mita_asioita_haluat_edistaa} ${candidate.ammatti} <a href='/admin/poistaEhdokas?id=${candidate.id}' onclick='return confirm("Haluatko varmasti poistaa kysymyksen: ${candidate.sukunimi} ${candidate.etunimi}?");'>Poista</a> <a href='/admin/muokkaaEhdokas?id=${candidate.id}'>Muokkaa</a> <a href='/admin/ehdokkaankysymykset?candidate=${candidate.id}'>Muokkaa vastauksia</a></li><br>
+					<li>${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.ika} ${candidate.puolue} ${candidate.kotipaikkakunta}  <a href='/admin/poistaEhdokas?id=${candidate.id}' onclick='return confirm("Haluatko varmasti poistaa ehdokkaan: ${candidate.sukunimi} ${candidate.etunimi}?");'><button class="button" style="font-size: 20px;">Poista</button></a> <a href='/admin/muokkaaEhdokas?id=${candidate.id}'><button class="button" style="font-size: 20px;">Muokkaa</button></a> <a href='/admin/ehdokkaankysymykset?candidate=${candidate.id}'><button class="button" style="font-size: 20px;">Muokkaa vastauksia</button></a></li><br>
 				</c:forEach>
 			</ul>
 		</div>
