@@ -2,7 +2,11 @@
 package app;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import data.Question;
+import data.Kysymykset;
 
 @WebServlet(
 	    name = "EditQuestionForm",
@@ -34,13 +39,21 @@ public class EditQuestionForm extends HttpServlet {
 		// Checking is there a current session
 	    //if (session != null && session.getAttribute("uname") != null) {
 	    	String id = request.getParameter("id");
-	    	Question q = null;
+//	    	Question q = null;
 	    	
 	    	// Making sure that there is an id so can get the information about question to the form
 	    	if (id != null) {	
-	    		q = Dao.readQuestion(id);
 	    		
-	    		request.setAttribute("question", q);
+	    		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
+	    		EntityManager em = emf.createEntityManager();
+	    		
+	    		em.getTransaction().begin();
+	    		Kysymykset question = em.find(Kysymykset.class, Integer.parseInt((id)));
+	    		em.getTransaction().commit();
+	    		//q = Dao.readQuestion(id);
+	    		
+	    		//request.setAttribute("question", q);
+	    		request.setAttribute("question", question);
 	    		RequestDispatcher rd=request.getRequestDispatcher("/jsp/EditQuestion.jsp");
 	    		rd.forward(request, response);
 		    	

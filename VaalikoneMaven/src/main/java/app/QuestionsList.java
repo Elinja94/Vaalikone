@@ -3,7 +3,11 @@ package app;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
-import data.Question;
+import data.Kysymykset;
 
 @WebServlet(
 	    name = "QuestionsList",
@@ -34,12 +38,20 @@ public class QuestionsList extends HttpServlet {
 				
 		// Checking is there a current session
 	    //if (session != null && session.getAttribute("uname") != null) {
-			ArrayList<Question> listOfQuestions = null;
+			//ArrayList<Question> listOfQuestions = null;
 			
 			// Getting information of the questions
 			if (Dao.getConnection() == true) {
-				listOfQuestions = Dao.listOfQuestions();
-				request.setAttribute("questionsList", listOfQuestions);
+//				listOfQuestions = Dao.listOfQuestions();
+//				request.setAttribute("questionsList", listOfQuestions);
+				EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
+	    		EntityManager em = emf.createEntityManager();
+	    		
+				em.getTransaction().begin();
+				List<Kysymykset> questionsList=em.createQuery("select k from Kysymykset k").getResultList();
+				em.getTransaction().commit();
+
+				request.setAttribute("questionsList", questionsList);
 				RequestDispatcher rd = request.getRequestDispatcher("/jsp/QuestionsList.jsp");
 				rd.forward(request, response);
 				

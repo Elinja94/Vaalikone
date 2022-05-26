@@ -3,16 +3,18 @@ package app;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.Dao;
+import data.Kysymykset;
 import data.Question;
 
 /**
@@ -45,9 +47,17 @@ public class EditQuestion extends HttpServlet {
 	    	
 	    	// Checking is there something in the question
 	    	if (id != null && !ques.isEmpty()) {
-	    		Question q = new Question(id, ques);
-	    		ArrayList<Question> list = null;
-	    		list = Dao.updateQuestion(q);
+	    		Kysymykset k = new Kysymykset(request.getParameter("id"), request.getParameter("question"));
+	    		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
+	    		EntityManager em = emf.createEntityManager();
+	    		
+	    		em.getTransaction().begin();
+	    		Kysymykset question = em.merge(k);
+	    		em.getTransaction().commit();
+	    		
+	    		//Question q = new Question(id, ques);
+	    		//ArrayList<Question> list = null;
+	    		//list = Dao.updateQuestion(q);
 	    		out.println("<script type='text/javascript'>");
 		    	out.println("alert('Kysymys muokattu');");
 		    	out.println("location='/admin/kysymykset';");
