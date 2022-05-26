@@ -47,9 +47,9 @@
 		<div class="content"><br>
 			<a href="/admin/kysymykset" style="text-decoration: none; color: #171616;">&#60; Takaisin kysymyksiin</a>
 			<h2>Kysymyksen tiedot:</h2>
-			<form action="/admin/lisaaKysymysVahvistus" method="POST" onsubmit="return false;">
-		    	Kysymys:<br> <textarea id="question" name="question" rows="6" cols="50"></textarea><br>
-		    	<input type="button" value="Lisää kysymys" class="button" onClick="sendData();">
+			<form action="/admin/lisaaKysymysVahvistus" onsubmit="return sendData()">
+		    	Kysymys:<br> <textarea id="question" name="question" rows="6" cols="50" required></textarea><br>
+		    	<input type="submit" value="Lisää kysymys" class="button">
 		    </form>
     	</div>
 	</body>

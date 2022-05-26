@@ -28,7 +28,7 @@
 			<a href="/admin/lisaaKysymys" style="text-decoration: none; color: #171616;">Lisää kysmys &#62;</a>
 			<ul>
 				<c:forEach var="question" items="${requestScope.questionsList}" >
-					<li>${question.getId()}: ${question.getQuestion()} <a href='/admin/poistaKysymys?id=${question.getId()}' onclick='return confirm("Haluatko varmasti poistaa kysymyksen: ${question.getQuestion()}?");'><button class="button" style="font-size: 20px;">Poista</button></a> <a href='/admin/muokkaaKysymys?id=${question.getId()}'><button class="button" style="font-size: 20px;">Muokkaa</button></a></li><br>
+					<li>${question.getId()}: ${question.question}<a href='/admin/poistaKysymys?id=${question.getId()}' onclick='return confirm("Haluatko varmasti poistaa kysymyksen: ${question.question}");'><button class="button" style="font-size: 20px;">Poista</button></a> <a href='/admin/muokkaaKysymys?id=${question.getId()}'><button class="button" style="font-size: 20px;">Muokkaa</button></a></li><br>
 				</c:forEach>
 			</ul>
 		</div>
