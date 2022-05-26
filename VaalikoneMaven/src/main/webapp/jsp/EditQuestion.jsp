@@ -27,8 +27,8 @@
 			<a href="/admin/kysymykset" style="text-decoration: none; color: #171616;">&#60; Takaisin kysymyksiin</a>
 			<h2>Muokkaa kysymystä</h2>
 			<form action="/admin/muokkaaKysymysVahvistus" method="POST">
-				<input type="hidden" name="id" value="${requestScope.question.id}" readonly> 
-				Kysymys:<br><textarea name="question" rows="6" cols="50">${requestScope.question.question}</textarea><br>
+				<input type="hidden" name="id" value="${question.getId()}" readonly> 
+				Kysymys:<br><textarea name="question" rows="6" cols="50">${question.getQuestion()}</textarea><br>
 				<input type="submit" name="ok" value="Päivitä" class="button">
 			</form>
 		</div>
