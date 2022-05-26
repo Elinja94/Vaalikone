@@ -2,6 +2,7 @@
     
 <%@ page import="java.util.ArrayList" %>   
 <%@ page import="data.Question" %>   
+<%@ page import="data.Kysymykset" %>   
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
@@ -15,6 +16,26 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Kanit:wght@300&family=Marck+Script&display=swap">
 		<link rel="icon" type="image/x-icon" href="http://localhost:8080/images/favicon.png">
 		<title>Vaalikone Admin - Lisää kysymys</title>
+		<script>
+		function sendData(){
+			var question=new Object();
+			question.question=document.getElementById("question").value;
+			
+			var jsonQuestion=JSON.stringify(question);
+			var xhttp = new XMLHttpRequest();
+			
+			xhttp.onreadystatechange = function() {
+			  if (this.readyState == 4 && this.status == 200) {
+			   var returned=JSON.parse(this.responseText);
+			   location.href = '/admin/lisaaKysymysVahvistus?question=' + returned.question;
+			  }
+			};
+			
+			xhttp.open("POST","/vaalikone/questions/addquestion",true);
+			xhttp.setRequestHeader("Content-type","application/json");
+			xhttp.send(jsonQuestion);
+		}
+		</script>
 	</head>
 	<body>
 		<header>
@@ -26,9 +47,9 @@
 		<div class="content"><br>
 			<a href="/admin/kysymykset" style="text-decoration: none; color: #171616;">&#60; Takaisin kysymyksiin</a>
 			<h2>Kysymyksen tiedot:</h2>
-			<form action="/admin/lisaaKysymysVahvistus" method="POST">
-		    	Kysymys:<br> <textarea name="question" rows="6" cols="50"></textarea><br>
-		    	<input type="submit" value="Lisää kysymys" class="button">
+			<form action="/admin/lisaaKysymysVahvistus" method="POST" onsubmit="return false;">
+		    	Kysymys:<br> <textarea id="question" name="question" rows="6" cols="50"></textarea><br>
+		    	<input type="button" value="Lisää kysymys" class="button" onClick="sendData();">
 		    </form>
     	</div>
 	</body>
