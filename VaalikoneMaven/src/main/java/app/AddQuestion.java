@@ -25,7 +25,7 @@ public class AddQuestion extends HttpServlet {
         super();
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Way to print out later
 		PrintWriter out = response.getWriter();
@@ -39,8 +39,8 @@ public class AddQuestion extends HttpServlet {
 	    	String question = request.getParameter("question");
 	    	
 	    	// Checking if where able to add question
-	    	if (!question.isEmpty()) {
-	    		Dao.addQuestion(question);
+	    	if (question != null) {
+	    		//Dao.addQuestion(question);
 		    	out.println("<script type='text/javascript'>");
 		    	out.println("alert('Kysymys lisätty');");
 		    	out.println("location='/admin/kysymykset';");
