@@ -10,7 +10,6 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -53,6 +52,7 @@ public class Questions {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Kysymykset readToUpdateQuestion(@PathParam("id") int id) {
+		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
 		EntityManager em=emf.createEntityManager();
 	    em.getTransaction().begin();
 	    Kysymykset k = em.find(Kysymykset.class,id);
@@ -62,10 +62,11 @@ public class Questions {
 	}
 	
 	@PUT
-	@Path("/admin/muokkaaKysymysVahvistus")
+	@Path("/updatequestion")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Kysymykset> updateQuestion(Kysymykset kysymys) {
+	public Kysymykset updateQuestion(Kysymykset kysymys) {
+		EntityManagerFactory emf=Persistence.createEntityManagerFactory("vaalikone");
 		EntityManager em=emf.createEntityManager();
 		em.getTransaction().begin();
 		Kysymykset k = em.find(Kysymykset.class, kysymys.getId()); 
@@ -74,8 +75,7 @@ public class Questions {
 			
 		}
 		em.getTransaction().commit();
-		List<Kysymykset> list= getQuestions();		
-		return list;
+		return kysymys;
 	}
 	
 }
