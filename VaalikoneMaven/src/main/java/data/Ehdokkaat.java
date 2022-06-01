@@ -13,7 +13,7 @@ public class Ehdokkaat implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int EHDOKAS_ID;
+	private int EHDOKAS_ID ;
 	private String sukunimi;
 	private String etunimi;
 	private String puolue;
@@ -49,8 +49,9 @@ public class Ehdokkaat implements Serializable {
 			this.EHDOKAS_ID = Integer.parseInt(id);
 		}
 		catch(NumberFormatException | NullPointerException e) {
-
+			
 		}
+		
 	}
 	
 	public String getSukunimi() {

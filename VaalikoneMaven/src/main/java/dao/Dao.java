@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import data.Answer;
 import data.Question;
 import data.Candidate;
@@ -71,7 +75,7 @@ public class Dao {
 		
 		url = "jdbc:mysql://localhost:3306/vaalikone?useSSL=false&allowPublicKeyRetrieval=false";
 		user= "root";
-		pass= "Palvelin";
+		pass= "Vaalikone123";
 		
 		try {
 	        if (conn == null || conn.isClosed()) {
@@ -497,6 +501,11 @@ public class Dao {
 		return null;
 		
 	}
+	
+	
+	
+	
+
 	
 	
 

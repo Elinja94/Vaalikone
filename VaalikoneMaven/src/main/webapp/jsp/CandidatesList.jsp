@@ -28,7 +28,7 @@
 			<a href="/admin/lisaaEhdokas" style="text-decoration: none; color: #171616;">Lisää ehdokas &#62;</a>
 			<ul>
 				<c:forEach var="candidate" items="${requestScope.candidatesList}" >
-					<li>${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.ika} ${candidate.puolue} ${candidate.kotipaikkakunta}  <a href='/admin/poistaEhdokas?id=${candidate.id}' onclick='return confirm("Haluatko varmasti poistaa ehdokkaan: ${candidate.sukunimi} ${candidate.etunimi}?");'><button class="button" style="font-size: 20px;">Poista</button></a> <a href='/admin/muokkaaEhdokas?id=${candidate.id}'><button class="button" style="font-size: 20px;">Muokkaa</button></a> <a href='/admin/ehdokkaankysymykset?candidate=${candidate.id}'><button class="button" style="font-size: 20px;">Muokkaa vastauksia</button></a></li><br>
+					<li>${candidate.id}: ${candidate.sukunimi} ${candidate.etunimi} ${candidate.ika} ${candidate.puolue} ${candidate.kotipaikkakunta}  <a href='/vaalikone/candidates/deletecandidate?id=${candidate.id}' onclick='return confirm("Haluatko varmasti poistaa ehdokkaan: ${candidate.sukunimi} ${candidate.etunimi}?");'><button class="button" style="font-size: 20px;">Poista</button></a> <a href='/admin/muokkaaEhdokas?id=${candidate.id}'><button class="button" style="font-size: 20px;">Muokkaa</button></a> <a href='/admin/ehdokkaankysymykset?candidate=${candidate.id}'><button class="button" style="font-size: 20px;">Muokkaa vastauksia</button></a></li><br>
 				</c:forEach>
 			</ul>
 		</div>
